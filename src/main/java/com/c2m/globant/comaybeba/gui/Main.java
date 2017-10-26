@@ -5,6 +5,7 @@
  */
 package com.c2m.globant.comaybeba.gui;
 
+import com.c2m.globant.comaybeba.database.Conexion;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -12,8 +13,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import com.c2m.globant.comaybeba.objects.Lugar;
-import com.c2m.globant.comaybeba.objects.Mesa;
 import com.c2m.globant.comaybeba.objects.Platillo;
 
 /**
@@ -32,9 +31,9 @@ public class Main extends javax.swing.JFrame {
     //Tipo mesa y general para la creación de estas
     private final int GENERAL = 2;
     
-    private ArrayList<Mesa> mesas;
+    private ArrayList<MesaImagen> mesas;
     
-    private ArrayList<Lugar> lugares;
+    private ArrayList<LugarImagen> lugares;
     
     private ArrayList<Platillo> platillos;
     
@@ -474,7 +473,12 @@ public class Main extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        
+        for(MesaImagen m : mesas){
+            Conexion.getInstance().getRef().child("Mesas").child(String.valueOf(m.getId())).setValue(m.getMesa());
+        }
+        for(LugarImagen l : lugares){
+            Conexion.getInstance().getRef().child("Lugares").child(l.getNombre()).setValue(l.getLugar());
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnAgregarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImgActionPerformed
@@ -535,7 +539,11 @@ public class Main extends javax.swing.JFrame {
                     "Cuál es la capacidad de esta mesa", 
                     "Capacidad", 
                     JOptionPane.QUESTION_MESSAGE));
-            Mesa m = new Mesa(capacidad);
+            int id = Integer.parseInt(JOptionPane.showInputDialog(null, 
+                    "Cuál es el número de la mesa", 
+                    "Número mesa", 
+                    JOptionPane.QUESTION_MESSAGE));
+            MesaImagen m = new MesaImagen(capacidad,id);
             panMapa.add(m).repaint();
             mesas.add(m);
         }else if(tipo == GENERAL){
@@ -543,7 +551,7 @@ public class Main extends javax.swing.JFrame {
                     "Cuál es el nombre del objeto", 
                     "Objeto", 
                     JOptionPane.QUESTION_MESSAGE);
-            Lugar l = new Lugar(nombre);
+            LugarImagen l = new LugarImagen(nombre);
             panMapa.add(l).repaint();
             lugares.add(l);
         }

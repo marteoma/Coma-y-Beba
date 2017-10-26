@@ -34,8 +34,8 @@ public class Image extends javax.swing.JPanel implements MouseListener, MouseMot
     /**
      * variables auxiliares para el desplazamiento del objeto
      */
-    private int nuevo_X = 1;
-    private int nuevo_Y = 1;
+    protected int nuevo_X = 1;
+    protected int nuevo_Y = 1;
 
     public Image() {
         this.setSize(50, 50);
@@ -60,13 +60,6 @@ public class Image extends javax.swing.JPanel implements MouseListener, MouseMot
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-        nuevo_X = (this.getLocation().x);
-        nuevo_Y = (this.getLocation().y);
-        this.setLocation(nuevo_X, nuevo_Y);
-    }
-
-    @Override
     public void mouseEntered(MouseEvent e) {
         this.setBorder(BorderFactory.createLineBorder(new java.awt.Color(204, 0, 51), 1));
     }
@@ -88,6 +81,13 @@ public class Image extends javax.swing.JPanel implements MouseListener, MouseMot
     public void mouseMoved(MouseEvent e) {
     }
 
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        nuevo_X = (this.getLocation().x);
+        nuevo_Y = (this.getLocation().y);
+        this.setLocation(nuevo_X, nuevo_Y);
+    }
+    
     /**
      * 99 * metodo para obtener la posicion del frame en la pantalla 100 *
      * @param MouseEvent evt 101

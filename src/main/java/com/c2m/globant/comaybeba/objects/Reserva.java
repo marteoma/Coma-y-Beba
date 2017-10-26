@@ -5,6 +5,7 @@
  */
 package com.c2m.globant.comaybeba.objects;
 
+import com.c2m.globant.comaybeba.gui.MesaImagen;
 import java.util.Calendar;
 
 /**
@@ -16,6 +17,6 @@ public class Reserva {
     
     private Calendar fecha;
     
-    private Mesa mesa;
+    private MesaImagen mesa;
     
 }

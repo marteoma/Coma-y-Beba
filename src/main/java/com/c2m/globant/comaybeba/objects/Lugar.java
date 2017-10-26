@@ -5,42 +5,55 @@
  */
 package com.c2m.globant.comaybeba.objects;
 
-import com.c2m.globant.comaybeba.gui.Image;
-import java.awt.Graphics;
-import javax.swing.ImageIcon;
-
 /**
- * Espacios del restaurante que afectan el mapa pero no son relevantes para 
- * la aplicación
+ *
  * @author hhade
  */
-public class Lugar extends Image{
-        
-    private String nombre;
+public class Lugar {
+    private int x;
     
-    public Lugar(String nombre){
-        super();
-        this.nombre = nombre;
-    }
+    private int y;
     
-    @Override
-    public void paint(Graphics g){
-        ImageIcon Img = new ImageIcon(getClass().getResource("/general.png"));
-        g.drawImage(Img.getImage(), 0, 0, 50, 50, null);
-        g.drawString(getNombre(), 10, 10);
+    /**
+     * Crea un objeto lugar con su posición en el restaurante, este objeto solo
+     * debería ser creado por una clase LugarImagen, y hacer parte del ella como 
+     * una sola entidad
+     * @param x Posición horizontal del lugar
+     * @param y Posición vertical del lugar
+     */
+    public Lugar(int x, int y){
+        this.x = x;
+        this.y = y;
     }
 
     /**
-     * @return the nombre
+     * @return the x
      */
-    public String getNombre() {
-        return nombre;
+    public int getX() {
+        return x;
     }
 
     /**
-     * @param nombre the nombre to set
+     * @param x the x to set
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setX(int x) {
+        this.x = x;
     }
+
+    /**
+     * @return the y
+     */
+    public int getY() {
+        return y;
+    }
+
+    /**
+     * @param y the y to set
+     */
+    public void setY(int y) {
+        this.y = y;
+    }
+    
+    
+    
 }

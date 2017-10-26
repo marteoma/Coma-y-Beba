@@ -5,32 +5,32 @@
  */
 package com.c2m.globant.comaybeba.objects;
 
-import com.c2m.globant.comaybeba.gui.Image;
-import java.awt.Graphics;
-import javax.swing.ImageIcon;
-
 /**
- * Objeto sobre el cual se hace una reserva
+ *
  * @author hhade
  */
-public class Mesa extends Image{
-        
+public class Mesa {
+    
     private int capacidad;
     
-    public Mesa(int capacidad){
-        super();
-        this.capacidad = capacidad;
-    }
+    private int x;
     
-    
-    
-    @Override
-    public void paint(Graphics g){
-        ImageIcon Img = new ImageIcon(getClass().getResource("/mesa.png"));
-        g.drawImage(Img.getImage(), 0, 0, 50, 50, null);
-        g.drawString(String.valueOf(getCapacidad()), 10, 10);
-    }
+    private int y;
 
+    /**
+     * Crea un objeto mesa con su posición en el restaurante, este objeto solo
+     * debería ser creado por una clase MesaImagen, y hacer parte del ella como 
+     * una sola entidad
+     * @param capacidad Capacidad de la mesa
+     * @param x Posición horizontal de la mesa
+     * @param y Posición vertical de la mesa
+     */
+    public Mesa(int capacidad, int x, int y){
+        this.capacidad = capacidad;
+        this.x = x;
+        this.y = y;
+    }
+    
     /**
      * @return the capacidad
      */
@@ -43,5 +43,33 @@ public class Mesa extends Image{
      */
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
+    }
+
+    /**
+     * @return the x
+     */
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * @param x the x to set
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     * @return the y
+     */
+    public int getY() {
+        return y;
+    }
+
+    /**
+     * @param y the y to set
+     */
+    public void setY(int y) {
+        this.y = y;
     }
 }
