@@ -60,20 +60,19 @@ public class Main extends javax.swing.JFrame {
         btnGeneral.setToolTipText("Añadir Lugar General");
         bringData();
         
-        DefaultListModel<String> model = new DefaultListModel<>(); 
-        platillos.forEach((platillo) -> {
-             model.addElement(platillo.ToString());
-        });
-        jList1.setModel(model); 
+      
         
     }
     
     private void updatePlati(){
+        
         DefaultListModel<String> model = new DefaultListModel<>(); 
+         
         platillos.forEach((platillo) -> {
              model.addElement(platillo.ToString());
         });
         jList1.setModel(model); 
+       
     }
 
     /**
@@ -126,6 +125,7 @@ public class Main extends javax.swing.JFrame {
         lista = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -393,6 +393,13 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -403,7 +410,9 @@ public class Main extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(jButton1))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(133, 133, 133)
                         .addComponent(jbVerdetalle)))
@@ -418,7 +427,9 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(83, 83, 83)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar)))
                 .addGap(48, 48, 48)
                 .addComponent(jbVerdetalle)
                 .addContainerGap(188, Short.MAX_VALUE))
@@ -522,13 +533,14 @@ public class Main extends javax.swing.JFrame {
 
     private void btnAgregarPlatilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPlatilloActionPerformed
         // TODO add your handling code here:
+     
         String nombre = txtNombrePlatillo.getText().trim();
         String desc = txtDescripcionPlatillo.getText().trim();
         boolean estado = jcEstado.getSelectedIndex() == 0;
         int precio = Integer.parseInt(txtPrecio.getText());
         if(nombre != null && desc != null){
             Platillo p = new Platillo(nombre, desc, precio, estado);
-            platillos.add(p);
+          
             updatePlati();
             Conexion.getInstance().getRef().child("Platillos").push().setValue(p);
         }else{
@@ -556,6 +568,16 @@ public class Main extends javax.swing.JFrame {
         CambiarEstado(platillos.get(jList1.getSelectedIndex()));
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        platillos.remove(jList1.getSelectedIndex());
+        // te dejo el espacio para que lo elimines en firebase ya que como no tengo la base de datos pues   
+        // me queda imposible intentar hacerlo.
+        updatePlati();
+     
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void bringData(){
         bringMesas();
@@ -613,8 +635,9 @@ public class Main extends javax.swing.JFrame {
                 for(DataSnapshot d : ds.getChildren()){
                     Platillo m = d.getValue(Platillo.class);                    
                     platillos.add(m);
-                    updatePlati();
+                   
                 }
+                 updatePlati();
             }
             @Override
             public void onCancelled(FirebaseError fe) {
@@ -681,6 +704,7 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarPlatillo;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGeneral;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnMesa;
