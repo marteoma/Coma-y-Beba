@@ -101,7 +101,6 @@ public class Main extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtNombrePlatillo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtDescripcionPlatillo = new javax.swing.JTextField();
         btnAgregarPlatillo = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
@@ -109,6 +108,8 @@ public class Main extends javax.swing.JFrame {
         jcEstado = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtDescripcionPlatillo = new javax.swing.JTextArea();
         jPanel9 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
@@ -230,7 +231,6 @@ public class Main extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 153, 0));
         jLabel4.setText("Estado, ¿Disponible? :");
         jPanel8.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
-        jPanel8.add(txtDescripcionPlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 294, 50));
 
         btnAgregarPlatillo.setBackground(new java.awt.Color(255, 204, 102));
         btnAgregarPlatillo.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
@@ -263,7 +263,7 @@ public class Main extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 153, 0));
         jLabel6.setText("Precio:");
-        jPanel8.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        jPanel8.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
         txtPrecio.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -271,7 +271,13 @@ public class Main extends javax.swing.JFrame {
                 txtPrecioKeyTyped(evt);
             }
         });
-        jPanel8.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 110, 30));
+        jPanel8.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 110, 30));
+
+        txtDescripcionPlatillo.setColumns(20);
+        txtDescripcionPlatillo.setRows(5);
+        jScrollPane3.setViewportView(txtDescripcionPlatillo);
+
+        jPanel8.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 300, 60));
 
         jtpDatos.addTab("Crear Menú", null, jPanel8, "");
 
@@ -484,15 +490,7 @@ public class Main extends javax.swing.JFrame {
                     lugares.remove(j);
                 }
             }
-        }
-
-        //panMapa.repaint();
-        /*for(MesaImagen i : mesas){
-            panMapa.add(i).repaint();
-        }
-        for(LugarImagen i : lugares){
-            panMapa.add(i).repaint();
-        } */       
+        }   
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void jbVerdetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerdetalleActionPerformed
@@ -682,6 +680,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JButton jbVerdetalle;
@@ -690,7 +689,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jtpDatos;
     private javax.swing.JScrollPane lista;
     private javax.swing.JPanel panMapa;
-    private javax.swing.JTextField txtDescripcionPlatillo;
+    private javax.swing.JTextArea txtDescripcionPlatillo;
     private javax.swing.JTextField txtNombrePlatillo;
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
