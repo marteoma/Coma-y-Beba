@@ -27,6 +27,16 @@ public class Platillo {
     }
     
     public Platillo(){}
+    
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof Platillo){
+            Platillo aux = (Platillo)o;
+            return (aux.getNombre() == null ? ((Platillo) o).getNombre() == null : aux.getNombre().equals(((Platillo) o).getNombre()));
+        }
+        return false;
+    }
+    
 
     @Override
     public String toString(){

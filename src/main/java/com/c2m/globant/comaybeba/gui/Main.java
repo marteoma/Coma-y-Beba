@@ -11,17 +11,12 @@ import com.c2m.globant.comaybeba.objects.Mesa;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import com.c2m.globant.comaybeba.objects.Platillo;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -29,12 +24,6 @@ import java.util.logging.Logger;
  */
 public class Main extends javax.swing.JFrame {
 
-    
-    /**
-     * Tamaño máximo para la imagen del platillo
-     */
-    private final int SIZE = 150;
-    
     private final int MESA = 1;
     //Tipo mesa y general para la creación de estas
     private final int GENERAL = 2;
@@ -126,6 +115,7 @@ public class Main extends javax.swing.JFrame {
         jList1 = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -400,23 +390,31 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizarIcon.png"))); // NOI18N
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jbVerdetalle)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(jbVerdetalle)))
-                .addContainerGap(131, Short.MAX_VALUE))
+                        .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,13 +424,14 @@ public class Main extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar)))
-                .addGap(48, 48, 48)
-                .addComponent(jbVerdetalle)
-                .addContainerGap(188, Short.MAX_VALUE))
+                        .addGap(34, 34, 34)
+                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbVerdetalle)
+                    .addComponent(btnEliminar)
+                    .addComponent(jButton1))
+                .addContainerGap(206, Short.MAX_VALUE))
         );
 
         jtpDatos.addTab("Menú", jPanel3);
@@ -504,20 +503,7 @@ public class Main extends javax.swing.JFrame {
                         .setValue(lugares.get(i).getLugar());
             }
         }
-        for(int i = 0; i < mesas.size(); i++){
-            for(int j = 0; j < mesas.size(); j++){
-                if(mesas.get(i).equals(mesas.get(j))){
-                    mesas.remove(j);
-                }
-            }
-        }
-        for(int i = 0; i < lugares.size(); i++){
-            for(int j = 0; j < lugares.size(); j++){
-                if(lugares.get(i).equals(lugares.get(j))){
-                    lugares.remove(j);
-                }
-            }
-        }   
+  
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void jbVerdetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerdetalleActionPerformed
@@ -566,6 +552,8 @@ public class Main extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         CambiarEstado(platillos.get(jList1.getSelectedIndex()));
+        updatePlati();
+        Conexion.getInstance().getRef().child("Platillos").removeValue();
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -578,6 +566,12 @@ public class Main extends javax.swing.JFrame {
      
         
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        bringData();
+        updatePlati();
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void bringData(){
         bringMesas();
@@ -594,8 +588,10 @@ public class Main extends javax.swing.JFrame {
                     Mesa m = (Mesa)d.getValue(Mesa.class);
                     MesaImagen mi = new MesaImagen(m);
                     mi.setClaveFirebase(d.getKey());
-                    panMapa.add(mi).repaint();
-                    mesas.add(mi);
+                    if(!mesas.contains(mi)){
+                        panMapa.add(mi).repaint();
+                        mesas.add(mi);
+                    }
                 }
             }
 
@@ -616,8 +612,10 @@ public class Main extends javax.swing.JFrame {
                     String nombre = m.getNombre();
                     LugarImagen mi = new LugarImagen(nombre,m);
                     mi.setClaveFirebase(d.getKey());
-                    panMapa.add(mi).repaint();
-                    lugares.add(mi);
+                    if(!lugares.contains(mi)){
+                        panMapa.add(mi).repaint();
+                        lugares.add(mi);
+                    }
                 }
             }
             @Override
@@ -633,9 +631,9 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void onDataChange(DataSnapshot ds) {
                 for(DataSnapshot d : ds.getChildren()){
-                    Platillo m = d.getValue(Platillo.class);                    
-                    platillos.add(m);
-                   
+                    Platillo m = d.getValue(Platillo.class);
+                    if(!platillos.contains(m))
+                        platillos.add(m);                   
                 }
                  updatePlati();
             }
@@ -703,6 +701,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregarPlatillo;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGeneral;
