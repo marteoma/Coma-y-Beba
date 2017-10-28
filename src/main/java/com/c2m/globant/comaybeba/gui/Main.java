@@ -44,9 +44,7 @@ public class Main extends javax.swing.JFrame {
     private final ArrayList<LugarImagen> lugares;
     
     private final ArrayList<Platillo> platillos;
-    
-    private ImageIcon img;//Imagen seleccionada para el platillo
-    
+        
     
     /**
      * Creates new form NewJFrame
@@ -104,12 +102,9 @@ public class Main extends javax.swing.JFrame {
         txtNombrePlatillo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtDescripcionPlatillo = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        btnAgregarImg = new javax.swing.JButton();
         btnAgregarPlatillo = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
-        panelImagenMenu = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jcEstado = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
@@ -234,23 +229,8 @@ public class Main extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 153, 0));
         jLabel4.setText("Estado, ¿Disponible? :");
-        jPanel8.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
+        jPanel8.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
         jPanel8.add(txtDescripcionPlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 294, 50));
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel7.setText("Imagen: ");
-        jPanel8.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
-
-        btnAgregarImg.setBackground(new java.awt.Color(255, 204, 102));
-        btnAgregarImg.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
-        btnAgregarImg.setText("Cargar Archivo");
-        btnAgregarImg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarImgActionPerformed(evt);
-            }
-        });
-        jPanel8.add(btnAgregarImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, -1, -1));
 
         btnAgregarPlatillo.setBackground(new java.awt.Color(255, 204, 102));
         btnAgregarPlatillo.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
@@ -260,32 +240,17 @@ public class Main extends javax.swing.JFrame {
                 btnAgregarPlatilloActionPerformed(evt);
             }
         });
-        jPanel8.add(btnAgregarPlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, -1, -1));
+        jPanel8.add(btnAgregarPlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
 
         jButton11.setBackground(new java.awt.Color(255, 204, 102));
         jButton11.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
         jButton11.setText("Buscar");
-        jPanel8.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 380, -1, -1));
+        jPanel8.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, -1, -1));
 
         jButton12.setBackground(new java.awt.Color(255, 204, 102));
         jButton12.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
         jButton12.setText("Modificar Estado");
-        jPanel8.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 380, -1, -1));
-
-        panelImagenMenu.setPreferredSize(new java.awt.Dimension(150, 150));
-
-        javax.swing.GroupLayout panelImagenMenuLayout = new javax.swing.GroupLayout(panelImagenMenu);
-        panelImagenMenu.setLayout(panelImagenMenuLayout);
-        panelImagenMenuLayout.setHorizontalGroup(
-            panelImagenMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelImagenMenuLayout.setVerticalGroup(
-            panelImagenMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jPanel8.add(panelImagenMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, -1, -1));
+        jPanel8.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 153, 0));
@@ -293,7 +258,7 @@ public class Main extends javax.swing.JFrame {
         jPanel8.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
         jcEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sí", "No" }));
-        jPanel8.add(jcEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 60, 30));
+        jPanel8.add(jcEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 60, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 153, 0));
@@ -530,24 +495,6 @@ public class Main extends javax.swing.JFrame {
         } */       
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void btnAgregarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImgActionPerformed
-        // TODO add your handling code here:
-        JFileChooser chooser = new JFileChooser();
-        int op = chooser.showOpenDialog(this);
-        if(op == JFileChooser.APPROVE_OPTION){
-            String ruta = chooser.getSelectedFile().toString();
-            img = new ImageIcon(ruta);
-            if (img.getIconHeight() <= this.SIZE && img.getIconWidth() <= this.SIZE){
-                JLabel limg = new JLabel(img);
-                limg.setSize(panelImagenMenu.getSize());
-                panelImagenMenu.add(limg);
-            }else{
-                JOptionPane.showConfirmDialog(null, "El tamaño de la imagen debe ser menor a 150x150",
-                    "Imágen demasiado grande", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_btnAgregarImgActionPerformed
-
     private void jbVerdetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerdetalleActionPerformed
         // TODO add your handling code here:
         if(!jList1.isSelectionEmpty()){
@@ -565,8 +512,8 @@ public class Main extends javax.swing.JFrame {
         String desc = txtDescripcionPlatillo.getText().trim();
         boolean estado = jcEstado.getSelectedIndex() == 0;
         int precio = Integer.parseInt(txtPrecio.getText());
-        if(img != null && nombre != null && desc != null){
-            Platillo p = new Platillo(nombre, desc, precio, img, estado);
+        if(nombre != null && desc != null){
+            Platillo p = new Platillo(nombre, desc, precio, estado);
             platillos.add(p);
             updatePlati();
             Conexion.getInstance().getRef().child("Platillos").push().setValue(p);
@@ -586,6 +533,7 @@ public class Main extends javax.swing.JFrame {
     private void bringData(){
         bringMesas();
         bringLugares();
+        bringPlatillos();
     }
     
     private void bringMesas(){
@@ -621,6 +569,24 @@ public class Main extends javax.swing.JFrame {
                     mi.setClaveFirebase(d.getKey());
                     panMapa.add(mi).repaint();
                     lugares.add(mi);
+                }
+            }
+            @Override
+            public void onCancelled(FirebaseError fe) {
+                
+            }
+        });
+    }
+    
+    private void bringPlatillos(){
+        Conexion.getInstance().getRef().child("Platillos").
+                addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot ds) {
+                for(DataSnapshot d : ds.getChildren()){
+                    Platillo m = d.getValue(Platillo.class);                    
+                    platillos.add(m);
+                    updatePlati();
                 }
             }
             @Override
@@ -687,7 +653,6 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarImg;
     private javax.swing.JButton btnAgregarPlatillo;
     private javax.swing.JButton btnGeneral;
     private javax.swing.JButton btnGuardar;
@@ -703,7 +668,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
@@ -726,7 +690,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jtpDatos;
     private javax.swing.JScrollPane lista;
     private javax.swing.JPanel panMapa;
-    private javax.swing.JPanel panelImagenMenu;
     private javax.swing.JTextField txtDescripcionPlatillo;
     private javax.swing.JTextField txtNombrePlatillo;
     private javax.swing.JTextField txtPrecio;

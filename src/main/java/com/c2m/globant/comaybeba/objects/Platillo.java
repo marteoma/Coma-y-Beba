@@ -5,8 +5,6 @@
  */
 package com.c2m.globant.comaybeba.objects;
 
-import javax.swing.ImageIcon;
-
 /**
  * Representación de un platillo incluido en el menú
  * @author hhade
@@ -20,16 +18,15 @@ public class Platillo {
     private int precio;
     
     private boolean estado;
-    
-    private ImageIcon foto;
-    
-    public Platillo(String name , String descr, int precio, ImageIcon fot, boolean estado){
+       
+    public Platillo(String name , String descr, int precio, boolean estado){
         nombre = name;
         descripcion = descr;
         this.precio = precio;
-        foto = fot;
         this.estado = estado;
     }
+    
+    public Platillo(){}
 
     @Override
     public String toString(){
@@ -92,19 +89,7 @@ public class Platillo {
         this.estado = estado;
     }
 
-    /**
-     * @return the foto
-     */
-    public ImageIcon getFoto() {
-        return foto;
-    }
 
-    /**
-     * @param foto the foto to set
-     */
-    public void setFoto(ImageIcon foto) {
-        this.foto = foto;
-    }
     public String ToString(){
      return nombre;   
     }
