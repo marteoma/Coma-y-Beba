@@ -58,13 +58,14 @@ public class Main extends javax.swing.JFrame {
         jtpDatos.setForeground(Color.red);
         btnMesa.setToolTipText("Añadir Mesa");
         btnGeneral.setToolTipText("Añadir Lugar General");
+        bringData();
         
         DefaultListModel<String> model = new DefaultListModel<>(); 
         platillos.forEach((platillo) -> {
              model.addElement(platillo.ToString());
         });
         jList1.setModel(model); 
-        bringData();
+        
     }
     
     private void updatePlati(){
@@ -124,6 +125,7 @@ public class Main extends javax.swing.JFrame {
         jbVerdetalle = new javax.swing.JButton();
         lista = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
+        jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -384,6 +386,13 @@ public class Main extends javax.swing.JFrame {
 
         lista.setViewportView(jList1);
 
+        jButton1.setText("Cambiar Estado");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -392,17 +401,24 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jButton1))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(133, 133, 133)
                         .addComponent(jbVerdetalle)))
-                .addContainerGap(264, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(jButton1)))
                 .addGap(48, 48, 48)
                 .addComponent(jbVerdetalle)
                 .addContainerGap(188, Short.MAX_VALUE))
@@ -527,6 +543,19 @@ public class Main extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtPrecioKeyTyped
+
+    public void CambiarEstado(Platillo platillo) {
+        if (platillo.isEstado() == true) {
+            platillo.setEstado(false);
+        } else {
+            platillo.setEstado(true);
+        }
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        CambiarEstado(platillos.get(jList1.getSelectedIndex()));
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void bringData(){
         bringMesas();
@@ -657,6 +686,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnMesa;
     private javax.swing.JButton btnMostrarReservas;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;

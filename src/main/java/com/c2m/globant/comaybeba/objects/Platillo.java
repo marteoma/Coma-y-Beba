@@ -91,6 +91,11 @@ public class Platillo {
 
 
     public String ToString(){
-     return nombre;   
+        if(estado == true){
+             return nombre + "- Disponible";   
+        }else{
+             return nombre+ "- No Disponible";   
+        }
+    
     }
 }
