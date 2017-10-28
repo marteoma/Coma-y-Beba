@@ -5,6 +5,7 @@
  */
 package com.c2m.globant.comaybeba.gui;
 
+import com.c2m.globant.comaybeba.database.Conexion;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
@@ -13,6 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import com.c2m.globant.comaybeba.objects.Platillo;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.FirebaseError;
 import javax.swing.JOptionPane;
 
 /**
@@ -60,20 +64,15 @@ public class Detalle extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        txtNombre.setEditable(false);
-
         LbNombre.setText("Nombre");
 
         lbDescripcion.setText("Descripcion");
 
-        txtDescripcion.setEditable(false);
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
         jScrollPane1.setViewportView(txtDescripcion);
 
         lbPrecio.setText("Precio");
-
-        txtPrecio.setEditable(false);
 
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -141,6 +140,37 @@ public class Detalle extends javax.swing.JFrame {
         currentPlatillo.setDescripcion(txtDescripcion.getText());
         currentPlatillo.setNombre(txtNombre.getText());
         currentPlatillo.setPrecio(Integer.parseInt(txtPrecio.getText()));
+         
+      
+       Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre").equalTo(currentPlatillo.getNombre()).addChildEventListener(new ChildEventListener() {
+    @Override
+    public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+      snapshot.getRef().setValue(currentPlatillo);
+    }
+
+            @Override
+            public void onChildChanged(DataSnapshot ds, String string) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot ds) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot ds, String string) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void onCancelled(FirebaseError fe) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });    
+        
+       
+     
         JOptionPane.showMessageDialog(rootPane,"Se ha actualizado el platillo");
     }//GEN-LAST:event_btnActualizarActionPerformed
 

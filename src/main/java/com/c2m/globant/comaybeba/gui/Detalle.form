@@ -89,9 +89,6 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="txtNombre">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="LbNombre">
       <Properties>
@@ -112,7 +109,6 @@
       <SubComponents>
         <Component class="javax.swing.JTextArea" name="txtDescripcion">
           <Properties>
-            <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
           </Properties>
@@ -125,9 +121,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPrecio">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnActualizar">
       <Properties>
