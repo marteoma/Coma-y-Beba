@@ -137,12 +137,13 @@ public class Detalle extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
+        String previousName = currentPlatillo.getNombre();
         currentPlatillo.setDescripcion(txtDescripcion.getText());
         currentPlatillo.setNombre(txtNombre.getText());
         currentPlatillo.setPrecio(Integer.parseInt(txtPrecio.getText()));
          
       
-       Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre").equalTo(currentPlatillo.getNombre()).addChildEventListener(new ChildEventListener() {
+       Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre").equalTo(previousName).addChildEventListener(new ChildEventListener() {
     @Override
     public void onChildAdded(DataSnapshot snapshot, String previousChild) {
       snapshot.getRef().setValue(currentPlatillo);
