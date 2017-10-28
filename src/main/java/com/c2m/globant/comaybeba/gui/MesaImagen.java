@@ -18,24 +18,30 @@ public class MesaImagen extends Image{
             
     private Mesa mesa;
     
-    private int id;
-    
+    private String claveFirebase = null;
+        
     
     /**
      * Crea una Mesa a partir de una capacidad y una identificacion
      * @param capacidad Capacidad de la mesa
-     * @param id Identificacion de la mesa
+     * @param id Identificación de la mesa
      */
     public MesaImagen(int capacidad, int id){
         super();
-        this.id = id;
-        mesa = new Mesa(capacidad, 0, 0);
+        mesa = new Mesa(capacidad, 0, 0, id);
     }
     
-    public MesaImagen(int id, Mesa mesa){
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof MesaImagen)
+            return (claveFirebase == null ? ((MesaImagen) o).getClaveFirebase() == null :
+                    claveFirebase.equals(((MesaImagen) o).getClaveFirebase()));
+        return false;
+    }
+    
+    public MesaImagen(Mesa mesa){
         super();
         this.mesa = mesa;
-        this.id = id;
         this.setLocation(mesa.getX(), mesa.getY());
     }
     
@@ -45,16 +51,16 @@ public class MesaImagen extends Image{
     public void paint(Graphics g){
         ImageIcon Img = new ImageIcon(getClass().getResource("/mesa.png"));
         g.drawImage(Img.getImage(), 0, 0, 50, 50, null);        
-        g.drawString(String.valueOf(mesa.getCapacidad()), 10, 10);
-        g.drawString("Mesa " + getId(), 10, 50);
+        g.drawString(String.valueOf(getMesa().getCapacidad()), 10, 10);
+        g.drawString("Mesa " + String.valueOf(getMesa().getId()), 10, 40);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         nuevo_X = (this.getLocation().x);
         nuevo_Y = (this.getLocation().y);
-        mesa.setX(nuevo_X);
-        mesa.setY(nuevo_Y);
+        getMesa().setX(nuevo_X);
+        getMesa().setY(nuevo_Y);
         this.setLocation(nuevo_X, nuevo_Y);
     }
 
@@ -73,16 +79,16 @@ public class MesaImagen extends Image{
     }
 
     /**
-     * @return the id
+     * @return the claveFirebase
      */
-    public int getId() {
-        return id;
+    public String getClaveFirebase() {
+        return claveFirebase;
     }
 
     /**
-     * @param id the id to set
+     * @param claveFirebase the claveFirebase to set
      */
-    public void setId(int id) {
-        this.id = id;
+    public void setClaveFirebase(String claveFirebase) {
+        this.claveFirebase = claveFirebase;
     }
 }

@@ -21,11 +21,21 @@ public class LugarImagen extends Image {
     private String nombre;
 
     private Lugar lugar;
+    
+    private String claveFirebase;
 
     public LugarImagen(String nombre) {
         super();
         this.nombre = nombre;
-        lugar = new Lugar(0, 0);
+        lugar = new Lugar(0, 0, nombre);
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof LugarImagen)
+            return (claveFirebase == null ? ((LugarImagen) o).getClaveFirebase() == null :
+                    claveFirebase.equals(((LugarImagen) o).getClaveFirebase()));
+        return false;
     }
     
     public LugarImagen(String nombre, Lugar lugar){
@@ -77,5 +87,19 @@ public class LugarImagen extends Image {
      */
     public void setLugar(Lugar lugar) {
         this.lugar = lugar;
+    }
+
+    /**
+     * @return the claveFirebase
+     */
+    public String getClaveFirebase() {
+        return claveFirebase;
+    }
+
+    /**
+     * @param claveFirebase the claveFirebase to set
+     */
+    public void setClaveFirebase(String claveFirebase) {
+        this.claveFirebase = claveFirebase;
     }
 }

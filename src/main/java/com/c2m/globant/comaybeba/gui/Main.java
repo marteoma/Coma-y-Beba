@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import com.c2m.globant.comaybeba.objects.Platillo;
 import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import java.util.logging.Level;
@@ -38,11 +39,11 @@ public class Main extends javax.swing.JFrame {
     //Tipo mesa y general para la creación de estas
     private final int GENERAL = 2;
     
-    private ArrayList<MesaImagen> mesas;
+    private final ArrayList<MesaImagen> mesas;
     
-    private ArrayList<LugarImagen> lugares;
+    private final ArrayList<LugarImagen> lugares;
     
-    private ArrayList<Platillo> platillos;
+    private final ArrayList<Platillo> platillos;
     
     private ImageIcon img;//Imagen seleccionada para el platillo
     
@@ -482,23 +483,51 @@ public class Main extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         for(int i = 0; i < mesas.size(); i++){
-            Conexion.getInstance().getRef().child("Mesas")
-                    .child(String.valueOf(mesas.get(i).getId()))
-                    .setValue(mesas.get(i).getMesa());
+            if(mesas.get(i).getClaveFirebase() == null){
+                Firebase clave = Conexion.getInstance().getRef().child("Mesas")
+                        .push();
+                mesas.get(i).setClaveFirebase(clave.getKey());
+                clave.setValue(mesas.get(i).getMesa()); 
+            }else{
+                Conexion.getInstance().getRef().child("Mesas")
+                        .child(mesas.get(i).getClaveFirebase())
+                        .setValue(mesas.get(i).getMesa());
+            }
         }
         for(int i = 0; i < lugares.size(); i++){
-            Conexion.getInstance().getRef().child("Lugares")
-                    .child(lugares.get(i).getNombre())
-                    .setValue(lugares.get(i).getLugar());
+            if(lugares.get(i).getClaveFirebase() == null){
+                Firebase clave = Conexion.getInstance().getRef().child("Lugares")
+                        .push();
+                lugares.get(i).setClaveFirebase(clave.getKey());
+                clave.setValue(lugares.get(i).getLugar());
+            }else{
+                Conexion.getInstance().getRef().child("Lugares")
+                        .child(lugares.get(i).getClaveFirebase())
+                        .setValue(lugares.get(i).getLugar());
+            }
         }
-        //panMapa.removeAll();
+        for(int i = 0; i < mesas.size(); i++){
+            for(int j = 0; j < mesas.size(); j++){
+                if(mesas.get(i).equals(mesas.get(j))){
+                    mesas.remove(j);
+                }
+            }
+        }
+        for(int i = 0; i < lugares.size(); i++){
+            for(int j = 0; j < lugares.size(); j++){
+                if(lugares.get(i).equals(lugares.get(j))){
+                    lugares.remove(j);
+                }
+            }
+        }
+
         //panMapa.repaint();
-        java.awt.Component[] c = panMapa.getComponents();
-        for(java.awt.Component i : c){
-            System.out.println(i);
+        /*for(MesaImagen i : mesas){
+            panMapa.add(i).repaint();
         }
-        System.out.println("\n");
-        //bringData();
+        for(LugarImagen i : lugares){
+            panMapa.add(i).repaint();
+        } */       
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnAgregarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImgActionPerformed
@@ -540,6 +569,7 @@ public class Main extends javax.swing.JFrame {
             Platillo p = new Platillo(nombre, desc, precio, img, estado);
             platillos.add(p);
             updatePlati();
+            Conexion.getInstance().getRef().child("Platillos").push().setValue(p);
         }else{
             JOptionPane.showConfirmDialog(null, "Debe llenar todos los campos",
                     "Campos Vacíos", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
@@ -564,12 +594,10 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void onDataChange(DataSnapshot ds) {
                 for(DataSnapshot d : ds.getChildren()){
-                    int id = Integer.valueOf(d.getKey());
-                    //System.out.println(d.getValue());
                     Mesa m = (Mesa)d.getValue(Mesa.class);
-                    MesaImagen mi = new MesaImagen(id,m);
+                    MesaImagen mi = new MesaImagen(m);
+                    mi.setClaveFirebase(d.getKey());
                     panMapa.add(mi).repaint();
-                    panMapa.repaint();
                     mesas.add(mi);
                 }
             }
@@ -587,15 +615,14 @@ public class Main extends javax.swing.JFrame {
             @Override
             public void onDataChange(DataSnapshot ds) {
                 for(DataSnapshot d : ds.getChildren()){
-                    String nombre = d.getKey();
-                    //System.out.println(d.getValue());
                     Lugar m = (Lugar)d.getValue(Lugar.class);
+                    String nombre = m.getNombre();
                     LugarImagen mi = new LugarImagen(nombre,m);
+                    mi.setClaveFirebase(d.getKey());
                     panMapa.add(mi).repaint();
                     lugares.add(mi);
                 }
             }
-
             @Override
             public void onCancelled(FirebaseError fe) {
                 
@@ -611,9 +638,9 @@ public class Main extends javax.swing.JFrame {
                     JOptionPane.QUESTION_MESSAGE));
             int id = Integer.parseInt(JOptionPane.showInputDialog(null, 
                     "Cuál es el número de la mesa", 
-                    "Número mesa", 
+                    "Identificación", 
                     JOptionPane.QUESTION_MESSAGE));
-            MesaImagen m = new MesaImagen(capacidad,id);
+            MesaImagen m = new MesaImagen(capacidad, id);
             panMapa.add(m).repaint();
             mesas.add(m);
         }else if(tipo == GENERAL){

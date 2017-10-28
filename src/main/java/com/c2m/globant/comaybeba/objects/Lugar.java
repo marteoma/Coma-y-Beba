@@ -10,6 +10,9 @@ package com.c2m.globant.comaybeba.objects;
  * @author hhade
  */
 public class Lugar {
+    
+    private String nombre;
+    
     private int x;
     
     private int y;
@@ -21,7 +24,8 @@ public class Lugar {
      * @param x Posición horizontal del lugar
      * @param y Posición vertical del lugar
      */
-    public Lugar(int x, int y){
+    public Lugar(int x, int y, String nombre){
+        this.nombre = nombre;
         this.x = x;
         this.y = y;
     }
@@ -54,6 +58,20 @@ public class Lugar {
      */
     public void setY(int y) {
         this.y = y;
+    }
+
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
     
