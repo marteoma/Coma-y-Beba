@@ -15,18 +15,28 @@ import javax.swing.ImageIcon;
  * @author hhade
  */
 public class MesaImagen extends Image{
-        
-    private int capacidad;
-    
+            
     private Mesa mesa;
     
     private int id;
     
+    
+    /**
+     * Crea una Mesa a partir de una capacidad y una identificacion
+     * @param capacidad Capacidad de la mesa
+     * @param id Identificacion de la mesa
+     */
     public MesaImagen(int capacidad, int id){
         super();
-        this.capacidad = capacidad;
         this.id = id;
         mesa = new Mesa(capacidad, 0, 0);
+    }
+    
+    public MesaImagen(int id, Mesa mesa){
+        super();
+        this.mesa = mesa;
+        this.id = id;
+        this.setLocation(mesa.getX(), mesa.getY());
     }
     
     
@@ -34,8 +44,8 @@ public class MesaImagen extends Image{
     @Override
     public void paint(Graphics g){
         ImageIcon Img = new ImageIcon(getClass().getResource("/mesa.png"));
-        g.drawImage(Img.getImage(), 0, 0, 50, 50, null);
-        g.drawString(String.valueOf(getCapacidad()), 10, 10);
+        g.drawImage(Img.getImage(), 0, 0, 50, 50, null);        
+        g.drawString(String.valueOf(mesa.getCapacidad()), 10, 10);
         g.drawString("Mesa " + getId(), 10, 50);
     }
 
@@ -46,20 +56,6 @@ public class MesaImagen extends Image{
         mesa.setX(nuevo_X);
         mesa.setY(nuevo_Y);
         this.setLocation(nuevo_X, nuevo_Y);
-    }
-    
-    /**
-     * @return the capacidad
-     */
-    public int getCapacidad() {
-        return capacidad;
-    }
-
-    /**
-     * @param capacidad the capacidad to set
-     */
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
     }
 
     /**

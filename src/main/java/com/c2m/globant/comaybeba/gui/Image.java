@@ -45,8 +45,7 @@ public class Image extends javax.swing.JPanel implements MouseListener, MouseMot
 
     @Override
     public void paint(Graphics g){
-        ImageIcon img = new ImageIcon("C:\\Users\\hhade\\Documents\\prueba.jpg");
-        g.drawImage(img.getImage(), 0, 0, 50, 50, null);
+
     }
 
     @Override
@@ -61,12 +60,10 @@ public class Image extends javax.swing.JPanel implements MouseListener, MouseMot
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        this.setBorder(BorderFactory.createLineBorder(new java.awt.Color(204, 0, 51), 1));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        this.setBorder(null);
     }
 
     @Override

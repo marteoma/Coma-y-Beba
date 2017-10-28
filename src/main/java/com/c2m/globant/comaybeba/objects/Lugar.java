@@ -26,6 +26,8 @@ public class Lugar {
         this.y = y;
     }
 
+    public Lugar(){        }
+    
     /**
      * @return the x
      */

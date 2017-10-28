@@ -31,6 +31,8 @@ public class Mesa {
         this.y = y;
     }
     
+    public Mesa(){}
+    
     /**
      * @return the capacidad
      */

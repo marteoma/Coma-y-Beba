@@ -6,6 +6,8 @@
 package com.c2m.globant.comaybeba.gui;
 
 import com.c2m.globant.comaybeba.database.Conexion;
+import com.c2m.globant.comaybeba.objects.Lugar;
+import com.c2m.globant.comaybeba.objects.Mesa;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -14,6 +16,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import com.c2m.globant.comaybeba.objects.Platillo;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -58,6 +65,7 @@ public class Main extends javax.swing.JFrame {
              model.addElement(platillo.ToString());
         });
         jList1.setModel(model); 
+        bringData();
     }
     
     private void updatePlati(){
@@ -473,12 +481,24 @@ public class Main extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        for(MesaImagen m : mesas){
-            Conexion.getInstance().getRef().child("Mesas").child(String.valueOf(m.getId())).setValue(m.getMesa());
+        for(int i = 0; i < mesas.size(); i++){
+            Conexion.getInstance().getRef().child("Mesas")
+                    .child(String.valueOf(mesas.get(i).getId()))
+                    .setValue(mesas.get(i).getMesa());
         }
-        for(LugarImagen l : lugares){
-            Conexion.getInstance().getRef().child("Lugares").child(l.getNombre()).setValue(l.getLugar());
+        for(int i = 0; i < lugares.size(); i++){
+            Conexion.getInstance().getRef().child("Lugares")
+                    .child(lugares.get(i).getNombre())
+                    .setValue(lugares.get(i).getLugar());
         }
+        //panMapa.removeAll();
+        //panMapa.repaint();
+        java.awt.Component[] c = panMapa.getComponents();
+        for(java.awt.Component i : c){
+            System.out.println(i);
+        }
+        System.out.println("\n");
+        //bringData();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnAgregarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarImgActionPerformed
@@ -533,6 +553,56 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtPrecioKeyTyped
 
+    private void bringData(){
+        bringMesas();
+        bringLugares();
+    }
+    
+    private void bringMesas(){
+        Conexion.getInstance().getRef().child("Mesas").
+                addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot ds) {
+                for(DataSnapshot d : ds.getChildren()){
+                    int id = Integer.valueOf(d.getKey());
+                    //System.out.println(d.getValue());
+                    Mesa m = (Mesa)d.getValue(Mesa.class);
+                    MesaImagen mi = new MesaImagen(id,m);
+                    panMapa.add(mi).repaint();
+                    panMapa.repaint();
+                    mesas.add(mi);
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError fe) {
+                
+            }
+        });
+    }
+    
+    private void bringLugares(){
+        Conexion.getInstance().getRef().child("Lugares").
+                addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot ds) {
+                for(DataSnapshot d : ds.getChildren()){
+                    String nombre = d.getKey();
+                    //System.out.println(d.getValue());
+                    Lugar m = (Lugar)d.getValue(Lugar.class);
+                    LugarImagen mi = new LugarImagen(nombre,m);
+                    panMapa.add(mi).repaint();
+                    lugares.add(mi);
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError fe) {
+                
+            }
+        });
+    }
+    
     private void createSpace(int tipo){
         if(tipo == MESA){
             int capacidad = Integer.parseInt(JOptionPane.showInputDialog(null, 
