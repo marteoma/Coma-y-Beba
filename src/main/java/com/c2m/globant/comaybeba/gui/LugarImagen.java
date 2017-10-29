@@ -12,7 +12,8 @@ import javax.swing.ImageIcon;
 
 /**
  * Espacios del restaurante que afectan el mapa pero no son relevantes para la
- * aplicación
+ * aplicación. 
+ * Esta clase es una representación gráfica.
  *
  * @author hhade
  */

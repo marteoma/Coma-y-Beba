@@ -13,10 +13,12 @@ import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import com.c2m.globant.comaybeba.objects.Platillo;
+import com.c2m.globant.comaybeba.objects.Reserva;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import java.util.function.Consumer;
 
 /**
  *
@@ -24,17 +26,36 @@ import com.firebase.client.ValueEventListener;
  */
 public class Main extends javax.swing.JFrame {
 
+    /**
+     * Tipo Mesa
+     */
     private final int MESA = 1;
-    //Tipo mesa y general para la creación de estas
+
+    /**
+     * Tipo lugar general
+     */
     private final int GENERAL = 2;
-    
+
+    /**
+     * Lista de Mesas. Esta lista es de Mesas de la interfaz, no de mesas en sí
+     */
     private final ArrayList<MesaImagen> mesas;
-    
+
+    /**
+     * Lista de lugares generales. Esta lista es de lugares de interfaz
+     */
     private final ArrayList<LugarImagen> lugares;
-    
+
+    /**
+     * Lista de platillos.
+     */
     private final ArrayList<Platillo> platillos;
-        
-    
+
+    /**
+     * Lista de reservas.
+     */
+    private final ArrayList<Reserva> reservas;
+
     /**
      * Creates new form NewJFrame
      */
@@ -42,26 +63,32 @@ public class Main extends javax.swing.JFrame {
         this.platillos = new ArrayList<>();
         this.mesas = new ArrayList<>();
         this.lugares = new ArrayList<>();
+        this.reservas = new ArrayList<>();
         initComponents();
         this.getContentPane().setBackground(Color.BLACK);
         jtpDatos.setForeground(Color.red);
         btnMesa.setToolTipText("Añadir Mesa");
         btnGeneral.setToolTipText("Añadir Lugar General");
         bringData();
-        
-      
-        
+    }
+
+    /**
+     * Carga los platillos en la interfaz gráfica
+     */
+    private void updatePlati() {
+        DefaultListModel<String> model = new DefaultListModel<>();
+        platillos.forEach((Platillo platillo) -> {
+            model.addElement(platillo.toString());
+        });
+        jList1.setModel(model);
     }
     
-    private void updatePlati(){
+    /**
+     * Actualiza la lista de reservas de la interfaz, para que queden todas las
+     * reservas que se han traído de la base de datos.
+     */
+    private void updaRes() {
         
-        DefaultListModel<String> model = new DefaultListModel<>(); 
-         
-        platillos.forEach((platillo) -> {
-             model.addElement(platillo.ToString());
-        });
-        jList1.setModel(model); 
-       
     }
 
     /**
@@ -82,7 +109,7 @@ public class Main extends javax.swing.JFrame {
         btnGuardar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tableReservas = new javax.swing.JTable();
         btnMostrarReservas = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jcReservas = new javax.swing.JComboBox<>();
@@ -120,7 +147,9 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
+        setIconImage(getIconImage());
         setIconImages(null);
+        setResizable(false);
 
         jtpDatos.setBackground(new java.awt.Color(0, 0, 0));
         jtpDatos.setForeground(new java.awt.Color(255, 0, 0));
@@ -180,7 +209,7 @@ public class Main extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tableReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -191,13 +220,18 @@ public class Main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable2);
+        jScrollPane1.setViewportView(tableReservas);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
 
         btnMostrarReservas.setBackground(new java.awt.Color(255, 204, 102));
         btnMostrarReservas.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
         btnMostrarReservas.setText("Mostrar");
+        btnMostrarReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarReservasActionPerformed(evt);
+            }
+        });
         jPanel2.add(btnMostrarReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 243, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -479,57 +513,57 @@ public class Main extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        for(int i = 0; i < mesas.size(); i++){
-            if(mesas.get(i).getClaveFirebase() == null){
+        for (int i = 0; i < mesas.size(); i++) {
+            if (mesas.get(i).getClaveFirebase() == null) {
                 Firebase clave = Conexion.getInstance().getRef().child("Mesas")
                         .push();
                 mesas.get(i).setClaveFirebase(clave.getKey());
-                clave.setValue(mesas.get(i).getMesa()); 
-            }else{
+                clave.setValue(mesas.get(i).getMesa());
+            } else {
                 Conexion.getInstance().getRef().child("Mesas")
                         .child(mesas.get(i).getClaveFirebase())
                         .setValue(mesas.get(i).getMesa());
             }
         }
-        for(int i = 0; i < lugares.size(); i++){
-            if(lugares.get(i).getClaveFirebase() == null){
+        for (int i = 0; i < lugares.size(); i++) {
+            if (lugares.get(i).getClaveFirebase() == null) {
                 Firebase clave = Conexion.getInstance().getRef().child("Lugares")
                         .push();
                 lugares.get(i).setClaveFirebase(clave.getKey());
                 clave.setValue(lugares.get(i).getLugar());
-            }else{
+            } else {
                 Conexion.getInstance().getRef().child("Lugares")
                         .child(lugares.get(i).getClaveFirebase())
                         .setValue(lugares.get(i).getLugar());
             }
         }
-  
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void jbVerdetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerdetalleActionPerformed
         // TODO add your handling code here:
-        if(!jList1.isSelectionEmpty()){
+        if (!jList1.isSelectionEmpty()) {
             Detalle d = new Detalle(platillos.get(jList1.getSelectedIndex()));
             d.setVisible(true);
-        }else{
+        } else {
             JOptionPane.showConfirmDialog(null, "Seleccione un platillo",
-                    "No hay platillo seleccionado", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);            
+                    "No hay platillo seleccionado", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbVerdetalleActionPerformed
 
     private void btnAgregarPlatilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPlatilloActionPerformed
         // TODO add your handling code here:
-     
+
         String nombre = txtNombrePlatillo.getText().trim();
         String desc = txtDescripcionPlatillo.getText().trim();
         boolean estado = jcEstado.getSelectedIndex() == 0;
         int precio = Integer.parseInt(txtPrecio.getText());
-        if(nombre != null && desc != null){
+        if (nombre != null && desc != null) {
             Platillo p = new Platillo(nombre, desc, precio, estado);
-          
+
             updatePlati();
             Conexion.getInstance().getRef().child("Platillos").push().setValue(p);
-        }else{
+        } else {
             JOptionPane.showConfirmDialog(null, "Debe llenar todos los campos",
                     "Campos Vacíos", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
         }
@@ -537,24 +571,24 @@ public class Main extends javax.swing.JFrame {
 
     private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
         // TODO add your handling code here:
-        if(!Character.isDigit(evt.getKeyChar())){
+        if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
     }//GEN-LAST:event_txtPrecioKeyTyped
 
+    /**
+     * Cambia el estado de un platillo específico
+     *
+     * @param platillo Platillo al que se le cambiará el estado
+     */
     public void CambiarEstado(Platillo platillo) {
-        if (platillo.isEstado() == true) {
-            platillo.setEstado(false);
-        } else {
-            platillo.setEstado(true);
-        }
+        platillo.setActivo(!platillo.isActivo());
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         CambiarEstado(platillos.get(jList1.getSelectedIndex()));
         updatePlati();
         Conexion.getInstance().getRef().child("Platillos").removeValue();
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -563,8 +597,6 @@ public class Main extends javax.swing.JFrame {
         // te dejo el espacio para que lo elimines en firebase ya que como no tengo la base de datos pues   
         // me queda imposible intentar hacerlo.
         updatePlati();
-     
-        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -573,101 +605,163 @@ public class Main extends javax.swing.JFrame {
         updatePlati();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
-    private void bringData(){
+    private void btnMostrarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarReservasActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btnMostrarReservasActionPerformed
+
+    /**
+     * Trae todos los datos de la base de datos
+     */
+    private void bringData() {
         bringMesas();
         bringLugares();
         bringPlatillos();
+        bringReservas();
     }
-    
-    private void bringMesas(){
+
+    /**
+     * Trae de la base de datos los datos sobre las mesas y las almacena en una
+     * lista local
+     */
+    private void bringMesas() {
         Conexion.getInstance().getRef().child("Mesas").
                 addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot ds) {
-                for(DataSnapshot d : ds.getChildren()){
-                    Mesa m = (Mesa)d.getValue(Mesa.class);
-                    MesaImagen mi = new MesaImagen(m);
-                    mi.setClaveFirebase(d.getKey());
-                    if(!mesas.contains(mi)){
-                        panMapa.add(mi).repaint();
-                        mesas.add(mi);
+                    @Override
+                    public void onDataChange(DataSnapshot ds) {
+                        for (DataSnapshot d : ds.getChildren()) {
+                            Mesa m = (Mesa) d.getValue(Mesa.class);
+                            MesaImagen mi = new MesaImagen(m);
+                            mi.setClaveFirebase(d.getKey());
+                            if (!mesas.contains(mi)) {
+                                panMapa.add(mi).repaint();
+                                mesas.add(mi);
+                            }
+                        }
                     }
-                }
-            }
 
-            @Override
-            public void onCancelled(FirebaseError fe) {
-                
-            }
-        });
+                    @Override
+                    public void onCancelled(FirebaseError fe) {
+
+                    }
+                });
     }
-    
-    private void bringLugares(){
+
+    /**
+     * Trae de la base de datos los datos sobre los lugares y los almacena en
+     * una lista local
+     */
+    private void bringLugares() {
         Conexion.getInstance().getRef().child("Lugares").
                 addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot ds) {
-                for(DataSnapshot d : ds.getChildren()){
-                    Lugar m = (Lugar)d.getValue(Lugar.class);
-                    String nombre = m.getNombre();
-                    LugarImagen mi = new LugarImagen(nombre,m);
-                    mi.setClaveFirebase(d.getKey());
-                    if(!lugares.contains(mi)){
-                        panMapa.add(mi).repaint();
-                        lugares.add(mi);
+                    @Override
+                    public void onDataChange(DataSnapshot ds) {
+                        for (DataSnapshot d : ds.getChildren()) {
+                            Lugar m = (Lugar) d.getValue(Lugar.class);
+                            String nombre = m.getNombre();
+                            LugarImagen mi = new LugarImagen(nombre, m);
+                            mi.setClaveFirebase(d.getKey());
+                            if (!lugares.contains(mi)) {
+                                panMapa.add(mi).repaint();
+                                lugares.add(mi);
+                            }
+                        }
                     }
-                }
-            }
-            @Override
-            public void onCancelled(FirebaseError fe) {
-                
-            }
-        });
+
+                    @Override
+                    public void onCancelled(FirebaseError fe) {
+
+                    }
+                });
     }
-    
-    private void bringPlatillos(){
+
+    /**
+     * Trae de la base de datos los datos sobre los platillos y los almacena en
+     * una lista local
+     */
+    private void bringPlatillos() {
         Conexion.getInstance().getRef().child("Platillos").
                 addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot ds) {
-                for(DataSnapshot d : ds.getChildren()){
-                    Platillo m = d.getValue(Platillo.class);
-                    if(!platillos.contains(m))
-                        platillos.add(m);                   
-                }
-                 updatePlati();
-            }
-            @Override
-            public void onCancelled(FirebaseError fe) {
-                
-            }
-        });
+                    @Override
+                    public void onDataChange(DataSnapshot ds) {
+                        for (DataSnapshot d : ds.getChildren()) {
+                            Platillo m = d.getValue(Platillo.class);
+                            if (!platillos.contains(m)) {
+                                platillos.add(m);
+                            }
+                        }
+                        updatePlati();
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError fe) {
+
+                    }
+                });
     }
+
+    /**
+     * Trae la información sobre las reservas de la base de datos y las almacena
+     */
+    private void bringReservas() {
+        Conexion.getInstance().getRef().child("Reservas").
+                addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot ds) {
+                        for (DataSnapshot d : ds.getChildren()) {
+                            Reserva m = d.getValue(Reserva.class);
+                            if (!reservas.contains(m)) {
+                                reservas.add(m);
+                            }
+                        }
+                        updaRes();
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError fe) {
+
+                    }
+                });
+    }
+
     
-    private void createSpace(int tipo){
-        if(tipo == MESA){
-            int capacidad = Integer.parseInt(JOptionPane.showInputDialog(null, 
-                    "Cuál es la capacidad de esta mesa", 
-                    "Capacidad", 
+
+    /**
+     * Permite crear en el mapa un lugar o una mesa, y lo almacena localmente
+     *
+     * @param tipo Indica si se está creando una mesa o un lugar general
+     */
+    private void createSpace(int tipo) {
+        if (tipo == MESA) {
+            int capacidad = Integer.parseInt(JOptionPane.showInputDialog(null,
+                    "Cuál es la capacidad de esta mesa",
+                    "Capacidad",
                     JOptionPane.QUESTION_MESSAGE));
-            int id = Integer.parseInt(JOptionPane.showInputDialog(null, 
-                    "Cuál es el número de la mesa", 
-                    "Identificación", 
+            int id = Integer.parseInt(JOptionPane.showInputDialog(null,
+                    "Cuál es el número de la mesa",
+                    "Identificación",
                     JOptionPane.QUESTION_MESSAGE));
             MesaImagen m = new MesaImagen(capacidad, id);
             panMapa.add(m).repaint();
             mesas.add(m);
-        }else if(tipo == GENERAL){
-            String nombre = JOptionPane.showInputDialog(null, 
-                    "Cuál es el nombre del objeto", 
-                    "Objeto", 
+        } else if (tipo == GENERAL) {
+            String nombre = JOptionPane.showInputDialog(null,
+                    "Cuál es el nombre del objeto",
+                    "Objeto",
                     JOptionPane.QUESTION_MESSAGE);
             LugarImagen l = new LugarImagen(nombre);
             panMapa.add(l).repaint();
             lugares.add(l);
         }
     }
-    
+
+    @Override
+    public java.awt.Image getIconImage() {
+        java.awt.Image retValue = java.awt.Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Logo.png"));
+        return retValue;
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -691,7 +785,7 @@ public class Main extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -735,15 +829,16 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JButton jbVerdetalle;
     private javax.swing.JComboBox<String> jcEstado;
     private javax.swing.JComboBox<String> jcReservas;
     private javax.swing.JTabbedPane jtpDatos;
     private javax.swing.JScrollPane lista;
     private javax.swing.JPanel panMapa;
+    private javax.swing.JTable tableReservas;
     private javax.swing.JTextArea txtDescripcionPlatillo;
     private javax.swing.JTextField txtNombrePlatillo;
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
+
 }

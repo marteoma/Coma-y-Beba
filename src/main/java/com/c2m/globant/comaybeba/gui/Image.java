@@ -6,7 +6,10 @@
 package com.c2m.globant.comaybeba.gui;
 
 /**
- *
+ * Esta clase representa un objeto en el mapa del restaurante.
+ * Se usa para la creación de las mesas y los lugares generales. No debería ser
+ * instanciada nunca.
+ * 
  * @author hhade
  */
 import java.awt.Graphics;
@@ -14,8 +17,6 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 
 public class Image extends javax.swing.JPanel implements MouseListener, MouseMotionListener {
 
@@ -37,7 +38,7 @@ public class Image extends javax.swing.JPanel implements MouseListener, MouseMot
     protected int nuevo_X = 1;
     protected int nuevo_Y = 1;
 
-    public Image() {
+    protected Image() {
         this.setSize(50, 50);
         this.addMouseListener(this);
         this.addMouseMotionListener(this);

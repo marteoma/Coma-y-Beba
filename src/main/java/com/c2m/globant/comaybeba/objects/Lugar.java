@@ -6,7 +6,8 @@
 package com.c2m.globant.comaybeba.objects;
 
 /**
- *
+ * Representa el lugar que se incluirá en la base de datos.
+ * 
  * @author hhade
  */
 public class Lugar {
@@ -23,13 +24,14 @@ public class Lugar {
      * una sola entidad
      * @param x Posición horizontal del lugar
      * @param y Posición vertical del lugar
+     * @param nombre Nombre del lugar que representa
      */
     public Lugar(int x, int y, String nombre){
         this.nombre = nombre;
         this.x = x;
         this.y = y;
     }
-
+    
     public Lugar(){        }
     
     /**

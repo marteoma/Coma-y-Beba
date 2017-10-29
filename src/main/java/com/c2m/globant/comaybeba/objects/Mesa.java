@@ -6,7 +6,8 @@
 package com.c2m.globant.comaybeba.objects;
 
 /**
- *
+ * Representa la mesa que se incluirá en la base de datos.
+ * 
  * @author hhade
  */
 public class Mesa {

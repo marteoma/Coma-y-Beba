@@ -11,7 +11,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 
 /**
- * Objeto sobre el cual se hace una reserva
+ * Objeto sobre el cual se hace una reserva.
+ * Esta es una representación gráfica de la mesa.
  * @author hhade
  */
 public class MesaImagen extends Image{

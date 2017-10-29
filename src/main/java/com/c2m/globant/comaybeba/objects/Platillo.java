@@ -17,13 +17,13 @@ public class Platillo {
     
     private int precio;
     
-    private boolean estado;
+    private boolean activo;
        
     public Platillo(String name , String descr, int precio, boolean estado){
         nombre = name;
         descripcion = descr;
         this.precio = precio;
-        this.estado = estado;
+        this.activo = estado;
     }
     
     public Platillo(){}
@@ -86,22 +86,22 @@ public class Platillo {
     }
 
     /**
-     * @return the estado
+     * @return the activo
      */
-    public boolean isEstado() {
-        return estado;
+    public boolean isActivo() {
+        return activo;
     }
 
     /**
-     * @param estado the estado to set
+     * @param activo the activo to set
      */
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
 
     public String ToString(){
-        if(estado == true){
+        if(activo == true){
              return nombre + "- Disponible";   
         }else{
              return nombre+ "- No Disponible";   

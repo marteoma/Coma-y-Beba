@@ -8,7 +8,8 @@ package com.c2m.globant.comaybeba.database;
 import com.firebase.client.Firebase;
 
 /**
- *
+ * Conexión con la base de datos.
+ * 
  * @author hhade
  */
 public final class Conexion {

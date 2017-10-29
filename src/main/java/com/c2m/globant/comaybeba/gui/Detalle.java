@@ -29,6 +29,7 @@ public class Detalle extends javax.swing.JFrame {
 
     /**
      * Creates new form Detalle
+     *
      * @param p
      */
     public Detalle(Platillo p) {
@@ -37,7 +38,7 @@ public class Detalle extends javax.swing.JFrame {
         txtNombre = new JTextField();
         txtPrecio = new JTextField();
         currentPlatillo = p;
-                
+
         initComponents();
         txtDescripcion.setText(currentPlatillo.getDescripcion());
         txtNombre.setText(currentPlatillo.getNombre());
@@ -141,13 +142,13 @@ public class Detalle extends javax.swing.JFrame {
         currentPlatillo.setDescripcion(txtDescripcion.getText());
         currentPlatillo.setNombre(txtNombre.getText());
         currentPlatillo.setPrecio(Integer.parseInt(txtPrecio.getText()));
-         
-      
-       Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre").equalTo(previousName).addChildEventListener(new ChildEventListener() {
-    @Override
-    public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-      snapshot.getRef().setValue(currentPlatillo);
-    }
+
+        Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre")
+                .equalTo(previousName).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+                snapshot.getRef().setValue(currentPlatillo);
+            }
 
             @Override
             public void onChildChanged(DataSnapshot ds, String string) {
@@ -168,11 +169,9 @@ public class Detalle extends javax.swing.JFrame {
             public void onCancelled(FirebaseError fe) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
-        });    
-        
-       
-     
-        JOptionPane.showMessageDialog(rootPane,"Se ha actualizado el platillo");
+        });
+
+        JOptionPane.showMessageDialog(rootPane, "Se ha actualizado el platillo");
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
