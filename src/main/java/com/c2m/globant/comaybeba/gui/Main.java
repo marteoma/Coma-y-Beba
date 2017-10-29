@@ -116,6 +116,7 @@ public class Main extends javax.swing.JFrame {
         btnCambiarEstado = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         panCrearMenu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNombrePlatillo = new javax.swing.JTextField();
@@ -206,6 +207,10 @@ public class Main extends javax.swing.JFrame {
 
         jtpDatos.addTab("Diseñar", panDiseñar);
 
+        panMenu.setBackground(new java.awt.Color(255, 255, 255));
+
+        jbVerdetalle.setBackground(new java.awt.Color(255, 204, 102));
+        jbVerdetalle.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
         jbVerdetalle.setText("Ver detalles");
         jbVerdetalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,6 +221,8 @@ public class Main extends javax.swing.JFrame {
         listMenu.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         lista.setViewportView(listMenu);
 
+        btnCambiarEstado.setBackground(new java.awt.Color(255, 204, 102));
+        btnCambiarEstado.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
         btnCambiarEstado.setText("Cambiar Estado");
         btnCambiarEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,6 +230,8 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar.setBackground(new java.awt.Color(255, 204, 102));
+        btnEliminar.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,6 +246,10 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel2.setText("Platillos: ");
+
         javax.swing.GroupLayout panMenuLayout = new javax.swing.GroupLayout(panMenu);
         panMenu.setLayout(panMenuLayout);
         panMenuLayout.setHorizontalGroup(
@@ -245,33 +258,39 @@ public class Main extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panMenuLayout.createSequentialGroup()
-                        .addComponent(jbVerdetalle)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCambiarEstado))
-                    .addGroup(panMenuLayout.createSequentialGroup()
                         .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(148, Short.MAX_VALUE))
+                        .addGap(59, 59, 59)
+                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panMenuLayout.createSequentialGroup()
+                .addContainerGap(102, Short.MAX_VALUE)
+                .addComponent(jbVerdetalle)
+                .addGap(18, 18, 18)
+                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCambiarEstado)
+                .addGap(95, 95, 95))
         );
         panMenuLayout.setVerticalGroup(
             panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panMenuLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel2)
                 .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panMenuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                        .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jbVerdetalle)
+                            .addComponent(btnEliminar)
+                            .addComponent(btnCambiarEstado))
+                        .addGap(112, 112, 112))
                     .addGroup(panMenuLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30)
-                .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbVerdetalle)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnCambiarEstado))
-                .addContainerGap(206, Short.MAX_VALUE))
+                        .addGap(63, 63, 63)
+                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         jtpDatos.addTab("Menú", panMenu);
@@ -1056,6 +1075,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buGroupEstadisticas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
