@@ -37,7 +37,15 @@ public class Platillo {
         return false;
     }
     
-
+    /**
+     * Cambia el estado de este platillo.
+     * Si está activo lo pone inactivo, si está inactivo lo pone activo.
+     */
+    public void cambiarEstado()
+    {
+        activo = !activo;
+    }
+    
     @Override
     public String toString(){
         return nombre + " - " + (activo == true ? "Activo" : "Inactivo");

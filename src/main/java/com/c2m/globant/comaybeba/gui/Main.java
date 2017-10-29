@@ -19,6 +19,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JMenuItem;
@@ -80,7 +81,7 @@ public class Main extends javax.swing.JFrame {
         platillos.forEach((Platillo platillo) -> {
             model.addElement(platillo.toString());
         });
-        jList1.setModel(model);
+        listMenu.setModel(model);
     }
 
     /**
@@ -88,6 +89,7 @@ public class Main extends javax.swing.JFrame {
      * reservas que se han traído de la base de datos.
      */
     private void updaRes() {
+        //TODO: Implementar
 
     }
 
@@ -100,19 +102,20 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buGroupEstadisticas = new javax.swing.ButtonGroup();
         jtpDatos = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        panDiseñar = new javax.swing.JPanel();
         btnMesa = new javax.swing.JButton();
         btnGeneral = new javax.swing.JButton();
         panMapa = new javax.swing.JPanel();
         btnGuardar = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        panReservas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableReservas = new javax.swing.JTable();
         btnMostrarReservas = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jcReservas = new javax.swing.JComboBox<>();
-        jPanel8 = new javax.swing.JPanel();
+        panCrearMenu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNombrePlatillo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -125,24 +128,24 @@ public class Main extends javax.swing.JFrame {
         txtPrecio = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtDescripcionPlatillo = new javax.swing.JTextArea();
-        jPanel9 = new javax.swing.JPanel();
+        panEstadisticas = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        rbClientes = new javax.swing.JRadioButton();
+        rbMesas = new javax.swing.JRadioButton();
+        rbMenu = new javax.swing.JRadioButton();
         jLabel8 = new javax.swing.JLabel();
-        jButton13 = new javax.swing.JButton();
+        btnMostrar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableEstadisticas = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        panMenu = new javax.swing.JPanel();
         jbVerdetalle = new javax.swing.JButton();
         lista = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listMenu = new javax.swing.JList<>();
         btnCambiarEstado = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        lbTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -154,8 +157,8 @@ public class Main extends javax.swing.JFrame {
         jtpDatos.setForeground(new java.awt.Color(255, 0, 0));
         jtpDatos.setFont(new java.awt.Font("Book Antiqua", 1, 11)); // NOI18N
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panDiseñar.setBackground(new java.awt.Color(255, 255, 255));
+        panDiseñar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnMesa.setBackground(new java.awt.Color(255, 255, 255));
         btnMesa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mesa.png"))); // NOI18N
@@ -165,7 +168,7 @@ public class Main extends javax.swing.JFrame {
                 btnMesaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 86, 104, 89));
+        panDiseñar.add(btnMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 86, 104, 89));
 
         btnGeneral.setBackground(new java.awt.Color(255, 255, 255));
         btnGeneral.setIcon(new javax.swing.ImageIcon(getClass().getResource("/general.png"))); // NOI18N
@@ -174,7 +177,7 @@ public class Main extends javax.swing.JFrame {
                 btnGeneralActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 186, 104, 95));
+        panDiseñar.add(btnGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 186, 104, 95));
 
         panMapa.setBackground(new java.awt.Color(255, 255, 204));
         panMapa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0)));
@@ -190,7 +193,7 @@ public class Main extends javax.swing.JFrame {
             .addGap(0, 327, Short.MAX_VALUE)
         );
 
-        jPanel1.add(panMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 35, -1, -1));
+        panDiseñar.add(panMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 35, -1, -1));
 
         btnGuardar.setBackground(new java.awt.Color(255, 204, 102));
         btnGuardar.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
@@ -201,12 +204,12 @@ public class Main extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 394, 90, 31));
+        panDiseñar.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 394, 90, 31));
 
-        jtpDatos.addTab("Diseñar", jPanel1);
+        jtpDatos.addTab("Diseñar", panDiseñar);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panReservas.setBackground(new java.awt.Color(255, 255, 255));
+        panReservas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tableReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -221,7 +224,7 @@ public class Main extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tableReservas);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
+        panReservas.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
 
         btnMostrarReservas.setBackground(new java.awt.Color(255, 204, 102));
         btnMostrarReservas.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
@@ -231,31 +234,31 @@ public class Main extends javax.swing.JFrame {
                 btnMostrarReservasActionPerformed(evt);
             }
         });
-        jPanel2.add(btnMostrarReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 243, -1, -1));
+        panReservas.add(btnMostrarReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 243, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 153, 0));
         jLabel10.setText("Reservas");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 161, -1, -1));
+        panReservas.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 161, -1, -1));
 
         jcReservas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activas", "Ocupadas", "Pendientes" }));
-        jPanel2.add(jcReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 193, 102, 32));
+        panReservas.add(jcReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 193, 102, 32));
 
-        jtpDatos.addTab("Reservas", jPanel2);
+        jtpDatos.addTab("Reservas", panReservas);
 
-        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panCrearMenu.setBackground(new java.awt.Color(255, 255, 255));
+        panCrearMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 153, 0));
         jLabel1.setText("Nombre: ");
-        jPanel8.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 14, -1, -1));
-        jPanel8.add(txtNombrePlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 300, 30));
+        panCrearMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 14, -1, -1));
+        panCrearMenu.add(txtNombrePlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 300, 30));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 153, 0));
         jLabel4.setText("Estado, ¿Disponible? :");
-        jPanel8.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
+        panCrearMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
 
         btnAgregarPlatillo.setBackground(new java.awt.Color(255, 204, 102));
         btnAgregarPlatillo.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
@@ -265,30 +268,30 @@ public class Main extends javax.swing.JFrame {
                 btnAgregarPlatilloActionPerformed(evt);
             }
         });
-        jPanel8.add(btnAgregarPlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
+        panCrearMenu.add(btnAgregarPlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
 
         jButton11.setBackground(new java.awt.Color(255, 204, 102));
         jButton11.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
         jButton11.setText("Buscar");
-        jPanel8.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, -1, -1));
+        panCrearMenu.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, -1, -1));
 
         jButton12.setBackground(new java.awt.Color(255, 204, 102));
         jButton12.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
         jButton12.setText("Modificar Estado");
-        jPanel8.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, -1, -1));
+        panCrearMenu.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 153, 0));
         jLabel5.setText("Descripción: ");
-        jPanel8.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+        panCrearMenu.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
         jcEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sí", "No" }));
-        jPanel8.add(jcEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 60, 30));
+        panCrearMenu.add(jcEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 60, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 153, 0));
         jLabel6.setText("Precio:");
-        jPanel8.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
+        panCrearMenu.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
 
         txtPrecio.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -296,40 +299,53 @@ public class Main extends javax.swing.JFrame {
                 txtPrecioKeyTyped(evt);
             }
         });
-        jPanel8.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 110, 30));
+        panCrearMenu.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 110, 30));
 
         txtDescripcionPlatillo.setColumns(20);
         txtDescripcionPlatillo.setRows(5);
         jScrollPane3.setViewportView(txtDescripcionPlatillo);
 
-        jPanel8.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 300, 60));
+        panCrearMenu.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 310, 100));
 
-        jtpDatos.addTab("Crear Menú", null, jPanel8, "");
+        jtpDatos.addTab("Crear Menú", null, panCrearMenu, "");
 
-        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panEstadisticas.setBackground(new java.awt.Color(255, 255, 255));
+        panEstadisticas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setForeground(new java.awt.Color(255, 204, 0));
 
-        jRadioButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(255, 153, 0));
-        jRadioButton1.setText("Clientes");
-
-        jRadioButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(255, 153, 0));
-        jRadioButton2.setText("Mesas");
-
-        jRadioButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jRadioButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jRadioButton3.setForeground(new java.awt.Color(255, 153, 0));
-        jRadioButton3.setText("Menú");
-        jRadioButton3.setToolTipText("");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+        rbClientes.setBackground(new java.awt.Color(255, 255, 255));
+        buGroupEstadisticas.add(rbClientes);
+        rbClientes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rbClientes.setForeground(new java.awt.Color(255, 153, 0));
+        rbClientes.setText("Clientes");
+        rbClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
+                rbClientesActionPerformed(evt);
+            }
+        });
+
+        rbMesas.setBackground(new java.awt.Color(255, 255, 255));
+        buGroupEstadisticas.add(rbMesas);
+        rbMesas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rbMesas.setForeground(new java.awt.Color(255, 153, 0));
+        rbMesas.setText("Mesas");
+        rbMesas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbMesasActionPerformed(evt);
+            }
+        });
+
+        rbMenu.setBackground(new java.awt.Color(255, 255, 255));
+        buGroupEstadisticas.add(rbMenu);
+        rbMenu.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rbMenu.setForeground(new java.awt.Color(255, 153, 0));
+        rbMenu.setText("Menú");
+        rbMenu.setToolTipText("");
+        rbMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbMenuActionPerformed(evt);
             }
         });
 
@@ -344,11 +360,11 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rbClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton3)
-                            .addComponent(jRadioButton2))
+                            .addComponent(rbMenu)
+                            .addComponent(rbMesas))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
@@ -362,22 +378,22 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton1)
+                .addComponent(rbClientes)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton2)
+                .addComponent(rbMesas)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton3)
+                .addComponent(rbMenu)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        jPanel9.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 22, -1, -1));
+        panEstadisticas.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 22, -1, -1));
 
-        jButton13.setBackground(new java.awt.Color(255, 204, 102));
-        jButton13.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
-        jButton13.setText("Mostrar");
-        jPanel9.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+        btnMostrar.setBackground(new java.awt.Color(255, 204, 102));
+        btnMostrar.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
+        btnMostrar.setText("Mostrar");
+        panEstadisticas.add(btnMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableEstadisticas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -388,17 +404,17 @@ public class Main extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tableEstadisticas);
 
-        jPanel9.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 304, 241));
+        panEstadisticas.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 304, 241));
 
         jLabel9.setBackground(new java.awt.Color(204, 255, 204));
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 153, 0));
         jLabel9.setText("Documento");
-        jPanel9.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 291, -1));
+        panEstadisticas.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 291, -1));
 
-        jtpDatos.addTab("Estadísticas", jPanel9);
+        jtpDatos.addTab("Estadísticas", panEstadisticas);
 
         jbVerdetalle.setText("Ver detalles");
         jbVerdetalle.addActionListener(new java.awt.event.ActionListener() {
@@ -407,7 +423,8 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        lista.setViewportView(jList1);
+        listMenu.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lista.setViewportView(listMenu);
 
         btnCambiarEstado.setText("Cambiar Estado");
         btnCambiarEstado.addActionListener(new java.awt.event.ActionListener() {
@@ -430,48 +447,48 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout panMenuLayout = new javax.swing.GroupLayout(panMenu);
+        panMenu.setLayout(panMenuLayout);
+        panMenuLayout.setHorizontalGroup(
+            panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panMenuLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panMenuLayout.createSequentialGroup()
                         .addComponent(jbVerdetalle)
                         .addGap(18, 18, 18)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCambiarEstado))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(panMenuLayout.createSequentialGroup()
                         .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(148, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+        panMenuLayout.setVerticalGroup(
+            panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panMenuLayout.createSequentialGroup()
+                .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panMenuLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(panMenuLayout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(30, 30, 30)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbVerdetalle)
                     .addComponent(btnEliminar)
                     .addComponent(btnCambiarEstado))
                 .addContainerGap(206, Short.MAX_VALUE))
         );
 
-        jtpDatos.addTab("Menú", jPanel3);
+        jtpDatos.addTab("Menú", panMenu);
 
-        jLabel2.setFont(new java.awt.Font("Bodoni MT Black", 3, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 204, 0));
-        jLabel2.setText("Coma y Beba con Genoveva");
+        lbTitulo.setFont(new java.awt.Font("Bodoni MT Black", 3, 14)); // NOI18N
+        lbTitulo.setForeground(new java.awt.Color(255, 204, 0));
+        lbTitulo.setText("Coma y Beba con Genoveva");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -482,13 +499,13 @@ public class Main extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(lbTitulo)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel2)
+                .addComponent(lbTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jtpDatos))
         );
@@ -496,9 +513,9 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+    private void rbMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMenuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+    }//GEN-LAST:event_rbMenuActionPerformed
 
     private void btnMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMesaActionPerformed
         try {
@@ -547,8 +564,8 @@ public class Main extends javax.swing.JFrame {
 
     private void jbVerdetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerdetalleActionPerformed
         // TODO add your handling code here:
-        if (!jList1.isSelectionEmpty()) {
-            Detalle d = new Detalle(platillos.get(jList1.getSelectedIndex()));
+        if (!listMenu.isSelectionEmpty()) {
+            Detalle d = new Detalle(platillos.get(listMenu.getSelectedIndex()));
             d.setVisible(true);
         } else {
             JOptionPane.showConfirmDialog(null, "Seleccione un platillo",
@@ -558,24 +575,35 @@ public class Main extends javax.swing.JFrame {
 
     private void btnAgregarPlatilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPlatilloActionPerformed
         // TODO add your handling code here:
-
         String nombre = txtNombrePlatillo.getText().trim();
         String desc = txtDescripcionPlatillo.getText().trim();
-        boolean estado = jcEstado.getSelectedIndex() == 0;
-        int precio = Integer.parseInt(txtPrecio.getText());
-        if (nombre != null && desc != null) {
-            Platillo p = new Platillo(nombre, desc, precio, estado);            
+        boolean estado = jcEstado.getSelectedIndex() == 0;        
+        if (!nombre.isEmpty() 
+                && !desc.isEmpty() 
+                && !txtPrecio.getText().isEmpty()) {
+            int precio = Integer.parseInt(txtPrecio.getText());
+            Platillo p = new Platillo(nombre, desc, precio, estado);
             Conexion.getInstance().getRef().child("Platillos").push().setValue(p);
             updatePlati();
+            JOptionPane.showMessageDialog(null,
+                    "Platillo Creado exitosamente",
+                    "Éxito",
+                    JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showConfirmDialog(null, "Debe llenar todos los campos",
                     "Campos Vacíos", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAgregarPlatilloActionPerformed
 
+    /**
+     * Este evento evita que el precio de un platillo pueda ser mayor a 5 digitos
+     * y obliga a escribir números.
+     * @param evt 
+     */
     private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
         // TODO add your handling code here:
-        if (!Character.isDigit(evt.getKeyChar())) {
+        if (!Character.isDigit(evt.getKeyChar()) 
+                || txtPrecio.getText().length() > 5) {
             evt.consume();
         }
     }//GEN-LAST:event_txtPrecioKeyTyped
@@ -584,48 +612,102 @@ public class Main extends javax.swing.JFrame {
         JPopupMenu desp = new JPopupMenu();
         JMenuItem eliminar = new JMenuItem("Elminar");
 
-        if (tipo == MESA) {
-            eliminar.addActionListener((java.awt.event.ActionEvent e1) -> {
-                mesas.remove((MesaImagen)componente);
-                panMapa.remove(componente);
-                /*Conexion.getInstance().getRef().child("Mesas")
-                        .child(((MesaImagen)componente).getClaveFirebase())
-                        .removeValue();*/
-                panMapa.repaint();
-            });
-        } else if (tipo == GENERAL) {
-            eliminar.addActionListener((java.awt.event.ActionEvent e1) -> {
-                lugares.remove((LugarImagen)componente);
-                panMapa.remove(componente);
-                panMapa.repaint();
-            });
-        } else {
-            throw new Exception("No es un tipo");
+        switch (tipo) {
+            case MESA:
+                eliminar.addActionListener((java.awt.event.ActionEvent e1) -> {
+                    Conexion.getInstance().getRef()
+                            .child("Mesas").orderByKey()
+                            .equalTo(((MesaImagen) componente).getClaveFirebase())
+                            .addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot ds, String string) {
+                            ds.getRef().removeValue();
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot ds, String string) {
+                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot ds) {
+                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot ds, String string) {
+                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+
+                        @Override
+                        public void onCancelled(FirebaseError fe) {
+                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+                    });
+                            
+                    mesas.remove((MesaImagen) componente);
+                    panMapa.remove(componente);
+                    panMapa.repaint();
+                });
+                break;
+            case GENERAL:
+                eliminar.addActionListener((java.awt.event.ActionEvent e1) -> {
+                    Conexion.getInstance().getRef()
+                            .child("Lugares").orderByKey()
+                            .equalTo(((LugarImagen) componente).getClaveFirebase())
+                            .addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(DataSnapshot ds, String string) {
+                            ds.getRef().removeValue();
+                        }
+
+                        @Override
+                        public void onChildChanged(DataSnapshot ds, String string) {
+                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot ds) {
+                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot ds, String string) {
+                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+
+                        @Override
+                        public void onCancelled(FirebaseError fe) {
+                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        }
+                    });
+                    lugares.remove((LugarImagen) componente);
+                    panMapa.remove(componente);
+                    panMapa.repaint();
+        });
+                break;
+            default:
+                throw new Exception("No es un tipo");
         }
 
         desp.add(eliminar);
         componente.setComponentPopupMenu(desp);
     }
 
-    /**
-     * Cambia el estado de un platillo específico
-     *
-     * @param platillo Platillo al que se le cambiará el estado
-     */
-    public void CambiarEstado(Platillo platillo) {
-        platillo.setActivo(!platillo.isActivo());
-        
-        
-    }
-    private void btnCambiarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarEstadoActionPerformed
+    private void btnCambiarEstadoActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        CambiarEstado(platillos.get(jList1.getSelectedIndex()));
-                 Platillo p;
-        p = platillos.get(jList1.getSelectedIndex());
-                
-        // te dejo el espacio para que lo elimines en firebase ya que como no tengo la base de datos pues   
-        // me queda imposible intentar hacerlo.
-                Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre")
+        Platillo p;
+        if(!listMenu.isSelectionEmpty())
+            p = platillos.get(listMenu.getSelectedIndex());
+        else{
+            JOptionPane.showMessageDialog(null,
+                    "Debe seleccionar un platillo", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        platillos.get(listMenu.getSelectedIndex()).cambiarEstado();        
+
+        Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre")
                 .equalTo(p.getNombre()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
@@ -652,33 +734,27 @@ public class Main extends javax.swing.JFrame {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         });
-        
-        
-        
-        
-        
-        
         updatePlati();
-        
-        
-        
-        Conexion.getInstance().getRef().child("Platillos").removeValue();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
 
         // TODO add your handling code here:
-        
-                Platillo p;
-        p = platillos.get(jList1.getSelectedIndex());
-                
-        // te dejo el espacio para que lo elimines en firebase ya que como no tengo la base de datos pues   
-        // me queda imposible intentar hacerlo.
-                Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre")
+        Platillo p;
+        if(!listMenu.isSelectionEmpty())
+            p = platillos.get(listMenu.getSelectedIndex());
+        else{
+            JOptionPane.showMessageDialog(null,
+                    "Debe seleccionar un platillo", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre")
                 .equalTo(p.getNombre()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                snapshot.getRef().setValue(null);
+                snapshot.getRef().removeValue();
             }
 
             @Override
@@ -701,8 +777,7 @@ public class Main extends javax.swing.JFrame {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         });
-platillos.remove(jList1.getSelectedIndex());
-        
+        platillos.remove(listMenu.getSelectedIndex());
         updatePlati();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -715,6 +790,14 @@ platillos.remove(jList1.getSelectedIndex());
         // TODO add your handling code here:
 
     }//GEN-LAST:event_btnMostrarReservasActionPerformed
+
+    private void rbClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbClientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbClientesActionPerformed
+
+    private void rbMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMesasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbMesasActionPerformed
 
     /**
      * Trae todos los datos de la base de datos
@@ -731,6 +814,7 @@ platillos.remove(jList1.getSelectedIndex());
      * lista local
      */
     private void bringMesas() {
+        mesas.clear();//Not sure of this line
         Conexion.getInstance().getRef().child("Mesas").
                 addValueEventListener(new ValueEventListener() {
                     @Override
@@ -763,6 +847,7 @@ platillos.remove(jList1.getSelectedIndex());
      * una lista local
      */
     private void bringLugares() {
+        lugares.clear();//Not sure of this line
         Conexion.getInstance().getRef().child("Lugares").
                 addValueEventListener(new ValueEventListener() {
                     @Override
@@ -796,6 +881,7 @@ platillos.remove(jList1.getSelectedIndex());
      * una lista local
      */
     private void bringPlatillos() {
+        platillos.clear();//Not sure of this line
         Conexion.getInstance().getRef().child("Platillos").
                 addValueEventListener(new ValueEventListener() {
                     @Override
@@ -808,7 +894,6 @@ platillos.remove(jList1.getSelectedIndex());
                         }
                         updatePlati();
                     }
-
                     @Override
                     public void onCancelled(FirebaseError fe) {
 
@@ -832,10 +917,11 @@ platillos.remove(jList1.getSelectedIndex());
                         }
                         updaRes();
                     }
-
                     @Override
                     public void onCancelled(FirebaseError fe) {
-
+                        JOptionPane.showMessageDialog(null,
+                                "Ha ocurrido un error en la base de datos",
+                                "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 });
     }
@@ -845,32 +931,88 @@ platillos.remove(jList1.getSelectedIndex());
      *
      * @param tipo Indica si se está creando una mesa o un lugar general
      */
-    private void createSpace(int tipo) throws Exception {
-        if (tipo == MESA) {
-            int capacidad = Integer.parseInt(JOptionPane.showInputDialog(null,
-                    "Cuál es la capacidad de esta mesa",
-                    "Capacidad",
-                    JOptionPane.QUESTION_MESSAGE));
-            int id = Integer.parseInt(JOptionPane.showInputDialog(null,
-                    "Cuál es el número de la mesa",
-                    "Identificación",
-                    JOptionPane.QUESTION_MESSAGE));
-            MesaImagen m = new MesaImagen(capacidad, id);
-            addPopUpMenu(MESA, m);
-            panMapa.add(m).repaint();
-            mesas.add(m);
-        } else if (tipo == GENERAL) {
-            String nombre = JOptionPane.showInputDialog(null,
-                    "Cuál es el nombre del objeto",
-                    "Objeto",
-                    JOptionPane.QUESTION_MESSAGE);
-            LugarImagen l = new LugarImagen(nombre);
-            addPopUpMenu(GENERAL, l);
-            panMapa.add(l).repaint();
-            lugares.add(l);
-        } else {
-            throw new Exception("No es un tipo");
+    private boolean createSpace(int tipo) throws Exception {
+        switch (tipo) {
+            case MESA:
+                int capacidad;
+                int id;
+                String strCapacidad = (JOptionPane.showInputDialog(null,
+                        "Cuál es la capacidad de esta mesa",
+                        "Capacidad",
+                        JOptionPane.QUESTION_MESSAGE));
+                if (strCapacidad != null) {
+                    if (isNumber(strCapacidad)) {
+                        capacidad = Integer.parseInt(strCapacidad);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ingrese un número",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+
+                String strId = (JOptionPane.showInputDialog(null,
+                        "Cuál es el número de la mesa",
+                        "Identificación",
+                        JOptionPane.QUESTION_MESSAGE));
+                if (strId != null) {
+                    if (isNumber(strId)) {
+                        id = Integer.parseInt(strId);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ingrese un número",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+                MesaImagen m = new MesaImagen(capacidad, id);
+                addPopUpMenu(MESA, m);
+                panMapa.add(m).repaint();
+                mesas.add(m);
+                return true;
+            case GENERAL:
+                String nombre = JOptionPane.showInputDialog(null,
+                        "Cuál es el nombre del objeto",
+                        "Objeto",
+                        JOptionPane.QUESTION_MESSAGE);
+                if (nombre == null) {
+                    return false;
+                }
+                LugarImagen l = new LugarImagen(nombre);
+                addPopUpMenu(GENERAL, l);
+                panMapa.add(l).repaint();
+                lugares.add(l);
+                return true;
+            default:
+                throw new Exception("No es un tipo");
         }
+    }
+
+    /**
+     * Verifica si una cadena de texto es solo un número
+     * @param string
+     * @return 
+     */
+    public boolean isNumber(String string) {
+        if (string == null || string.isEmpty()) {
+            return false;
+        }
+        int i = 0;
+        if (string.charAt(0) == '-') {
+            if (string.length() > 1) {
+                i++;
+            } else {
+                return false;
+            }
+        }
+        for (; i < string.length(); i++) {
+            if (!Character.isDigit(string.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -921,38 +1063,39 @@ platillos.remove(jList1.getSelectedIndex());
     private javax.swing.JButton btnGeneral;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnMesa;
+    private javax.swing.JButton btnMostrar;
     private javax.swing.JButton btnMostrarReservas;
+    private javax.swing.ButtonGroup buGroupEstadisticas;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton jbVerdetalle;
     private javax.swing.JComboBox<String> jcEstado;
     private javax.swing.JComboBox<String> jcReservas;
     private javax.swing.JTabbedPane jtpDatos;
+    private javax.swing.JLabel lbTitulo;
+    private javax.swing.JList<String> listMenu;
     private javax.swing.JScrollPane lista;
+    private javax.swing.JPanel panCrearMenu;
+    private javax.swing.JPanel panDiseñar;
+    private javax.swing.JPanel panEstadisticas;
     private javax.swing.JPanel panMapa;
+    private javax.swing.JPanel panMenu;
+    private javax.swing.JPanel panReservas;
+    private javax.swing.JRadioButton rbClientes;
+    private javax.swing.JRadioButton rbMenu;
+    private javax.swing.JRadioButton rbMesas;
+    private javax.swing.JTable tableEstadisticas;
     private javax.swing.JTable tableReservas;
     private javax.swing.JTextArea txtDescripcionPlatillo;
     private javax.swing.JTextField txtNombrePlatillo;
