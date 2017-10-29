@@ -109,25 +109,30 @@ public class Main extends javax.swing.JFrame {
         btnGeneral = new javax.swing.JButton();
         panMapa = new javax.swing.JPanel();
         btnGuardar = new javax.swing.JButton();
-        panReservas = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableReservas = new javax.swing.JTable();
-        btnMostrarReservas = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jcReservas = new javax.swing.JComboBox<>();
+        panMenu = new javax.swing.JPanel();
+        jbVerdetalle = new javax.swing.JButton();
+        lista = new javax.swing.JScrollPane();
+        listMenu = new javax.swing.JList<>();
+        btnCambiarEstado = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
         panCrearMenu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNombrePlatillo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         btnAgregarPlatillo = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jcEstado = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtDescripcionPlatillo = new javax.swing.JTextArea();
+        panReservas = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableReservas = new javax.swing.JTable();
+        btnMostrarReservas = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jcReservas = new javax.swing.JComboBox<>();
         panEstadisticas = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         rbClientes = new javax.swing.JRadioButton();
@@ -138,13 +143,6 @@ public class Main extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tableEstadisticas = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
-        panMenu = new javax.swing.JPanel();
-        jbVerdetalle = new javax.swing.JButton();
-        lista = new javax.swing.JScrollPane();
-        listMenu = new javax.swing.JList<>();
-        btnCambiarEstado = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
         lbTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -208,6 +206,129 @@ public class Main extends javax.swing.JFrame {
 
         jtpDatos.addTab("Diseñar", panDiseñar);
 
+        jbVerdetalle.setText("Ver detalles");
+        jbVerdetalle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVerdetalleActionPerformed(evt);
+            }
+        });
+
+        listMenu.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lista.setViewportView(listMenu);
+
+        btnCambiarEstado.setText("Cambiar Estado");
+        btnCambiarEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiarEstadoActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizarIcon.png"))); // NOI18N
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panMenuLayout = new javax.swing.GroupLayout(panMenu);
+        panMenu.setLayout(panMenuLayout);
+        panMenuLayout.setHorizontalGroup(
+            panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panMenuLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panMenuLayout.createSequentialGroup()
+                        .addComponent(jbVerdetalle)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCambiarEstado))
+                    .addGroup(panMenuLayout.createSequentialGroup()
+                        .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(148, Short.MAX_VALUE))
+        );
+        panMenuLayout.setVerticalGroup(
+            panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panMenuLayout.createSequentialGroup()
+                .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panMenuLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panMenuLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30)
+                .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbVerdetalle)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnCambiarEstado))
+                .addContainerGap(206, Short.MAX_VALUE))
+        );
+
+        jtpDatos.addTab("Menú", panMenu);
+
+        panCrearMenu.setBackground(new java.awt.Color(255, 255, 255));
+        panCrearMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel1.setText("Nombre: ");
+        panCrearMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 14, -1, -1));
+        panCrearMenu.add(txtNombrePlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 300, 30));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel4.setText("Estado, ¿Disponible? :");
+        panCrearMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, -1, -1));
+
+        btnAgregarPlatillo.setBackground(new java.awt.Color(255, 204, 102));
+        btnAgregarPlatillo.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
+        btnAgregarPlatillo.setText("Agregar");
+        btnAgregarPlatillo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPlatilloActionPerformed(evt);
+            }
+        });
+        panCrearMenu.add(btnAgregarPlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel5.setText("Descripción: ");
+        panCrearMenu.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+
+        jcEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sí", "No" }));
+        panCrearMenu.add(jcEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 60, 30));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel6.setText("Precio:");
+        panCrearMenu.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
+
+        txtPrecio.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyTyped(evt);
+            }
+        });
+        panCrearMenu.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 110, 30));
+
+        txtDescripcionPlatillo.setColumns(20);
+        txtDescripcionPlatillo.setRows(5);
+        jScrollPane3.setViewportView(txtDescripcionPlatillo);
+
+        panCrearMenu.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 310, 100));
+
+        jtpDatos.addTab("Crear Menú", null, panCrearMenu, "");
+
         panReservas.setBackground(new java.awt.Color(255, 255, 255));
         panReservas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -245,69 +366,6 @@ public class Main extends javax.swing.JFrame {
         panReservas.add(jcReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 193, 102, 32));
 
         jtpDatos.addTab("Reservas", panReservas);
-
-        panCrearMenu.setBackground(new java.awt.Color(255, 255, 255));
-        panCrearMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel1.setText("Nombre: ");
-        panCrearMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 14, -1, -1));
-        panCrearMenu.add(txtNombrePlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 300, 30));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel4.setText("Estado, ¿Disponible? :");
-        panCrearMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
-
-        btnAgregarPlatillo.setBackground(new java.awt.Color(255, 204, 102));
-        btnAgregarPlatillo.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
-        btnAgregarPlatillo.setText("Agregar");
-        btnAgregarPlatillo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarPlatilloActionPerformed(evt);
-            }
-        });
-        panCrearMenu.add(btnAgregarPlatillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
-
-        jButton11.setBackground(new java.awt.Color(255, 204, 102));
-        jButton11.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
-        jButton11.setText("Buscar");
-        panCrearMenu.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, -1, -1));
-
-        jButton12.setBackground(new java.awt.Color(255, 204, 102));
-        jButton12.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
-        jButton12.setText("Modificar Estado");
-        panCrearMenu.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel5.setText("Descripción: ");
-        panCrearMenu.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
-
-        jcEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sí", "No" }));
-        panCrearMenu.add(jcEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 60, 30));
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel6.setText("Precio:");
-        panCrearMenu.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
-
-        txtPrecio.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPrecioKeyTyped(evt);
-            }
-        });
-        panCrearMenu.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 110, 30));
-
-        txtDescripcionPlatillo.setColumns(20);
-        txtDescripcionPlatillo.setRows(5);
-        jScrollPane3.setViewportView(txtDescripcionPlatillo);
-
-        panCrearMenu.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 310, 100));
-
-        jtpDatos.addTab("Crear Menú", null, panCrearMenu, "");
 
         panEstadisticas.setBackground(new java.awt.Color(255, 255, 255));
         panEstadisticas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -416,76 +474,6 @@ public class Main extends javax.swing.JFrame {
 
         jtpDatos.addTab("Estadísticas", panEstadisticas);
 
-        jbVerdetalle.setText("Ver detalles");
-        jbVerdetalle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbVerdetalleActionPerformed(evt);
-            }
-        });
-
-        listMenu.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lista.setViewportView(listMenu);
-
-        btnCambiarEstado.setText("Cambiar Estado");
-        btnCambiarEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCambiarEstadoActionPerformed(evt);
-            }
-        });
-
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
-        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/actualizarIcon.png"))); // NOI18N
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panMenuLayout = new javax.swing.GroupLayout(panMenu);
-        panMenu.setLayout(panMenuLayout);
-        panMenuLayout.setHorizontalGroup(
-            panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panMenuLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panMenuLayout.createSequentialGroup()
-                        .addComponent(jbVerdetalle)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCambiarEstado))
-                    .addGroup(panMenuLayout.createSequentialGroup()
-                        .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(148, Short.MAX_VALUE))
-        );
-        panMenuLayout.setVerticalGroup(
-            panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panMenuLayout.createSequentialGroup()
-                .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panMenuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panMenuLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30)
-                .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbVerdetalle)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnCambiarEstado))
-                .addContainerGap(206, Short.MAX_VALUE))
-        );
-
-        jtpDatos.addTab("Menú", panMenu);
-
         lbTitulo.setFont(new java.awt.Font("Bodoni MT Black", 3, 14)); // NOI18N
         lbTitulo.setForeground(new java.awt.Color(255, 204, 0));
         lbTitulo.setText("Coma y Beba con Genoveva");
@@ -494,7 +482,7 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jtpDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -1066,8 +1054,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnMostrar;
     private javax.swing.JButton btnMostrarReservas;
     private javax.swing.ButtonGroup buGroupEstadisticas;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel4;
