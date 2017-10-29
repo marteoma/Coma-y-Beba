@@ -18,7 +18,10 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import java.util.function.Consumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
 /**
  *
@@ -39,31 +42,27 @@ public class Main extends javax.swing.JFrame {
     /**
      * Lista de Mesas. Esta lista es de Mesas de la interfaz, no de mesas en sí
      */
-    private final ArrayList<MesaImagen> mesas;
+    public final ArrayList<MesaImagen> mesas = new ArrayList<>();
 
     /**
      * Lista de lugares generales. Esta lista es de lugares de interfaz
      */
-    private final ArrayList<LugarImagen> lugares;
+    public final ArrayList<LugarImagen> lugares = new ArrayList<>();
 
     /**
      * Lista de platillos.
      */
-    private final ArrayList<Platillo> platillos;
+    private final ArrayList<Platillo> platillos = new ArrayList<>();
 
     /**
      * Lista de reservas.
      */
-    private final ArrayList<Reserva> reservas;
+    private final ArrayList<Reserva> reservas = new ArrayList<>();
 
     /**
      * Creates new form NewJFrame
      */
     public Main() {
-        this.platillos = new ArrayList<>();
-        this.mesas = new ArrayList<>();
-        this.lugares = new ArrayList<>();
-        this.reservas = new ArrayList<>();
         initComponents();
         this.getContentPane().setBackground(Color.BLACK);
         jtpDatos.setForeground(Color.red);
@@ -82,13 +81,13 @@ public class Main extends javax.swing.JFrame {
         });
         jList1.setModel(model);
     }
-    
+
     /**
      * Actualiza la lista de reservas de la interfaz, para que queden todas las
      * reservas que se han traído de la base de datos.
      */
     private void updaRes() {
-        
+
     }
 
     /**
@@ -100,7 +99,6 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jtpDatos = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         btnMesa = new javax.swing.JButton();
@@ -140,7 +138,7 @@ public class Main extends javax.swing.JFrame {
         jbVerdetalle = new javax.swing.JButton();
         lista = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
+        btnCambiarEstado = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -410,10 +408,10 @@ public class Main extends javax.swing.JFrame {
 
         lista.setViewportView(jList1);
 
-        jButton1.setText("Cambiar Estado");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCambiarEstado.setText("Cambiar Estado");
+        btnCambiarEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCambiarEstadoActionPerformed(evt);
             }
         });
 
@@ -443,7 +441,7 @@ public class Main extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                        .addComponent(btnCambiarEstado))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
@@ -464,7 +462,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbVerdetalle)
                     .addComponent(btnEliminar)
-                    .addComponent(jButton1))
+                    .addComponent(btnCambiarEstado))
                 .addContainerGap(206, Short.MAX_VALUE))
         );
 
@@ -502,13 +500,19 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     private void btnMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMesaActionPerformed
-        // TODO add your handling code here:
-        createSpace(MESA);
+        try {
+            createSpace(MESA);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnMesaActionPerformed
 
     private void btnGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneralActionPerformed
-        // TODO add your handling code here:
-        createSpace(GENERAL);
+        try {
+            createSpace(GENERAL);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnGeneralActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -559,10 +563,9 @@ public class Main extends javax.swing.JFrame {
         boolean estado = jcEstado.getSelectedIndex() == 0;
         int precio = Integer.parseInt(txtPrecio.getText());
         if (nombre != null && desc != null) {
-            Platillo p = new Platillo(nombre, desc, precio, estado);
-
-            updatePlati();
+            Platillo p = new Platillo(nombre, desc, precio, estado);            
             Conexion.getInstance().getRef().child("Platillos").push().setValue(p);
+            updatePlati();
         } else {
             JOptionPane.showConfirmDialog(null, "Debe llenar todos los campos",
                     "Campos Vacíos", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
@@ -576,6 +579,33 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtPrecioKeyTyped
 
+    private void addPopUpMenu(int tipo, Image componente) throws Exception {
+        JPopupMenu desp = new JPopupMenu();
+        JMenuItem eliminar = new JMenuItem("Elminar");
+
+        if (tipo == MESA) {
+            eliminar.addActionListener((java.awt.event.ActionEvent e1) -> {
+                mesas.remove((MesaImagen)componente);
+                panMapa.remove(componente);
+                /*Conexion.getInstance().getRef().child("Mesas")
+                        .child(((MesaImagen)componente).getClaveFirebase())
+                        .removeValue();*/
+                panMapa.repaint();
+            });
+        } else if (tipo == GENERAL) {
+            eliminar.addActionListener((java.awt.event.ActionEvent e1) -> {
+                lugares.remove((LugarImagen)componente);
+                panMapa.remove(componente);
+                panMapa.repaint();
+            });
+        } else {
+            throw new Exception("No es un tipo");
+        }
+
+        desp.add(eliminar);
+        componente.setComponentPopupMenu(desp);
+    }
+
     /**
      * Cambia el estado de un platillo específico
      *
@@ -584,12 +614,11 @@ public class Main extends javax.swing.JFrame {
     public void CambiarEstado(Platillo platillo) {
         platillo.setActivo(!platillo.isActivo());
     }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCambiarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarEstadoActionPerformed
         // TODO add your handling code here:
         CambiarEstado(platillos.get(jList1.getSelectedIndex()));
-        updatePlati();
-        Conexion.getInstance().getRef().child("Platillos").removeValue();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        updatePlati();        
+    }//GEN-LAST:event_btnCambiarEstadoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
@@ -602,7 +631,6 @@ public class Main extends javax.swing.JFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
         bringData();
-        updatePlati();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnMostrarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarReservasActionPerformed
@@ -635,6 +663,11 @@ public class Main extends javax.swing.JFrame {
                             mi.setClaveFirebase(d.getKey());
                             if (!mesas.contains(mi)) {
                                 panMapa.add(mi).repaint();
+                                try {
+                                    addPopUpMenu(MESA, mi);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 mesas.add(mi);
                             }
                         }
@@ -663,6 +696,11 @@ public class Main extends javax.swing.JFrame {
                             mi.setClaveFirebase(d.getKey());
                             if (!lugares.contains(mi)) {
                                 panMapa.add(mi).repaint();
+                                try {
+                                    addPopUpMenu(GENERAL, mi);
+                                } catch (Exception ex) {
+                                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 lugares.add(mi);
                             }
                         }
@@ -724,14 +762,12 @@ public class Main extends javax.swing.JFrame {
                 });
     }
 
-    
-
     /**
      * Permite crear en el mapa un lugar o una mesa, y lo almacena localmente
      *
      * @param tipo Indica si se está creando una mesa o un lugar general
      */
-    private void createSpace(int tipo) {
+    private void createSpace(int tipo) throws Exception {
         if (tipo == MESA) {
             int capacidad = Integer.parseInt(JOptionPane.showInputDialog(null,
                     "Cuál es la capacidad de esta mesa",
@@ -742,6 +778,7 @@ public class Main extends javax.swing.JFrame {
                     "Identificación",
                     JOptionPane.QUESTION_MESSAGE));
             MesaImagen m = new MesaImagen(capacidad, id);
+            addPopUpMenu(MESA, m);
             panMapa.add(m).repaint();
             mesas.add(m);
         } else if (tipo == GENERAL) {
@@ -750,8 +787,11 @@ public class Main extends javax.swing.JFrame {
                     "Objeto",
                     JOptionPane.QUESTION_MESSAGE);
             LugarImagen l = new LugarImagen(nombre);
+            addPopUpMenu(GENERAL, l);
             panMapa.add(l).repaint();
             lugares.add(l);
+        } else {
+            throw new Exception("No es un tipo");
         }
     }
 
@@ -794,16 +834,16 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregarPlatillo;
+    private javax.swing.JButton btnCambiarEstado;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGeneral;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnMesa;
     private javax.swing.JButton btnMostrarReservas;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;

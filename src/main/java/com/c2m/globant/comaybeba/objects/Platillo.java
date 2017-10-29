@@ -32,7 +32,7 @@ public class Platillo {
     public boolean equals(Object o){
         if(o instanceof Platillo){
             Platillo aux = (Platillo)o;
-            return (aux.getNombre() == null ? ((Platillo) o).getNombre() == null : aux.getNombre().equals(((Platillo) o).getNombre()));
+            return aux.getNombre().equals(this.getNombre());
         }
         return false;
     }
@@ -40,7 +40,7 @@ public class Platillo {
 
     @Override
     public String toString(){
-        return nombre;
+        return nombre + " - " + (activo == true ? "Activo" : "Inactivo");
     }
     
     /**

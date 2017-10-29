@@ -6,10 +6,10 @@
 package com.c2m.globant.comaybeba.gui;
 
 /**
- * Esta clase representa un objeto en el mapa del restaurante.
- * Se usa para la creación de las mesas y los lugares generales. No debería ser
- * instanciada nunca.
- * 
+ * Esta clase representa un objeto en el mapa del restaurante. Se usa para la
+ * creación de las mesas y los lugares generales. No debería ser instanciada
+ * nunca.
+ *
  * @author hhade
  */
 import java.awt.Graphics;
@@ -41,11 +41,11 @@ public class Image extends javax.swing.JPanel implements MouseListener, MouseMot
     protected Image() {
         this.setSize(50, 50);
         this.addMouseListener(this);
-        this.addMouseMotionListener(this);
+        this.addMouseMotionListener(this);        
     }
 
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
 
     }
 
@@ -85,9 +85,11 @@ public class Image extends javax.swing.JPanel implements MouseListener, MouseMot
         nuevo_Y = (this.getLocation().y);
         this.setLocation(nuevo_X, nuevo_Y);
     }
-    
+
     /**
-     * 99 * metodo para obtener la posicion del frame en la pantalla 100 *
+     * 99 * metodo para obtener la posicion del frame en la pantalla 100
+     *
+     *
      * @param MouseEvent evt 101
      */
     private Point getScreenLocation(MouseEvent evt) {
