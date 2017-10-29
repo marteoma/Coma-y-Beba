@@ -14,6 +14,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import com.c2m.globant.comaybeba.objects.Platillo;
 import com.c2m.globant.comaybeba.objects.Reserva;
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -613,18 +614,95 @@ public class Main extends javax.swing.JFrame {
      */
     public void CambiarEstado(Platillo platillo) {
         platillo.setActivo(!platillo.isActivo());
+        
+        
     }
     private void btnCambiarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarEstadoActionPerformed
         // TODO add your handling code here:
         CambiarEstado(platillos.get(jList1.getSelectedIndex()));
-        updatePlati();        
-    }//GEN-LAST:event_btnCambiarEstadoActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        platillos.remove(jList1.getSelectedIndex());
+                 Platillo p;
+        p = platillos.get(jList1.getSelectedIndex());
+                
         // te dejo el espacio para que lo elimines en firebase ya que como no tengo la base de datos pues   
         // me queda imposible intentar hacerlo.
+                Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre")
+                .equalTo(p.getNombre()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+                snapshot.getRef().setValue(p);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot ds, String string) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot ds) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot ds, String string) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void onCancelled(FirebaseError fe) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        
+        
+        
+        
+        
+        
+        updatePlati();
+        
+        
+        
+        Conexion.getInstance().getRef().child("Platillos").removeValue();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+
+        // TODO add your handling code here:
+        
+                Platillo p;
+        p = platillos.get(jList1.getSelectedIndex());
+                
+        // te dejo el espacio para que lo elimines en firebase ya que como no tengo la base de datos pues   
+        // me queda imposible intentar hacerlo.
+                Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre")
+                .equalTo(p.getNombre()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+                snapshot.getRef().setValue(null);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot ds, String string) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot ds) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot ds, String string) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void onCancelled(FirebaseError fe) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+platillos.remove(jList1.getSelectedIndex());
+        
         updatePlati();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
