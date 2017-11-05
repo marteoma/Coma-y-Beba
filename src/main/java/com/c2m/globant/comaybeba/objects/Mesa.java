@@ -51,6 +51,11 @@ public class Mesa {
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
     }
+    
+    @Override
+    public String toString(){
+        return "Mesa " + id;
+    }
 
     /**
      * @return the x

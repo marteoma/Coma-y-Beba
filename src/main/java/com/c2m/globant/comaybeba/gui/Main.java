@@ -24,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -90,7 +91,14 @@ public class Main extends javax.swing.JFrame {
      */
     private void updaRes() {
         //TODO: Implementar
-
+        tableReservas.removeAll();
+        String columns[] = {"Usuario","Fecha","Mesa"};
+        DefaultTableModel model = new DefaultTableModel(null,columns);
+        reservas.forEach((Reserva r) -> {
+            Object a[] = {r.getUser(),r.getFecha(),r.getMesa()};
+            model.addRow(a);
+        });
+        tableReservas.setModel(model);
     }
 
     /**
@@ -337,15 +345,30 @@ public class Main extends javax.swing.JFrame {
 
         tableReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Usuario", "Fecha", "Mesa"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tableReservas);
 
         panReservas.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));

@@ -15,12 +15,27 @@ import java.util.Calendar;
  */
 public class Reserva {
     
-    private Usuario user;
+    private String user;
     
-    private Calendar fecha;
+    private String fecha;
     
-    private MesaImagen mesa;
+    private String mesa;
     
+    /**
+     * Crea una reserva con todos sus parámetros
+     * @param fecha Fecha en la que está programada la reserva
+     * @param mesa Mesa en la cual se realiza la reserva
+     * @param user Identificación del usuario
+     */
+    public Reserva(String fecha, MesaImagen mesa, String user){
+        this.fecha = fecha;
+        this.mesa = mesa.getClaveFirebase();
+        this.user = user;
+    }
+    
+    public Reserva(){
+        
+    }
     
     
     @Override
@@ -37,42 +52,42 @@ public class Reserva {
     /**
      * @return the user
      */
-    public Usuario getUser() {
+    public String getUser() {
         return user;
     }
 
     /**
      * @param user the user to set
      */
-    public void setUser(Usuario user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
     /**
      * @return the fecha
      */
-    public Calendar getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
     /**
      * @param fecha the fecha to set
      */
-    public void setFecha(Calendar fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
     /**
      * @return the mesa
      */
-    public MesaImagen getMesa() {
+    public String getMesa() {
         return mesa;
     }
 
     /**
      * @param mesa the mesa to set
      */
-    public void setMesa(MesaImagen mesa) {
+    public void setMesa(String mesa) {
         this.mesa = mesa;
     }
     
