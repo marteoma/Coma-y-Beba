@@ -18,7 +18,9 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
+import java.awt.AWTEventMulticaster;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -71,7 +73,23 @@ public class Main extends javax.swing.JFrame {
         jtpDatos.setForeground(Color.red);
         btnMesa.setToolTipText("Añadir Mesa");
         btnGeneral.setToolTipText("Añadir Lugar General");
+        rbClientes.setSelected(true);
         bringData();
+    }
+
+    public void masReservada() {
+        Conexion.getInstance().getRef().child("Reservas").
+                orderByChild("mesa").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot ds) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError fe) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
     }
 
     /**
@@ -92,10 +110,10 @@ public class Main extends javax.swing.JFrame {
     private void updaRes() {
         //TODO: Implementar
         tableReservas.removeAll();
-        String columns[] = {"Usuario","Fecha","Mesa"};
-        DefaultTableModel model = new DefaultTableModel(null,columns);
+        String columns[] = {"Usuario", "Fecha", "Mesa"};
+        DefaultTableModel model = new DefaultTableModel(null, columns);
         reservas.forEach((Reserva r) -> {
-            Object a[] = {r.getUser(),r.getFecha(),r.getMesa()};
+            Object a[] = {r.getUser(), r.getFecha(), r.getMesa()};
             model.addRow(a);
         });
         tableReservas.setModel(model);
@@ -139,8 +157,8 @@ public class Main extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableReservas = new javax.swing.JTable();
         btnMostrarReservas = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
         jcReservas = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
         panEstadisticas = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         rbClientes = new javax.swing.JRadioButton();
@@ -383,13 +401,13 @@ public class Main extends javax.swing.JFrame {
         });
         panReservas.add(btnMostrarReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 243, -1, -1));
 
+        jcReservas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activas", "Ocupadas", "Pendientes" }));
+        panReservas.add(jcReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 193, 90, 32));
+
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 153, 0));
         jLabel10.setText("Reservas");
-        panReservas.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 161, -1, -1));
-
-        jcReservas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activas", "Ocupadas", "Pendientes" }));
-        panReservas.add(jcReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 193, 102, 32));
+        panReservas.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, -1, -1));
 
         jtpDatos.addTab("Reservas", panReservas);
 
@@ -600,9 +618,9 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nombre = txtNombrePlatillo.getText().trim();
         String desc = txtDescripcionPlatillo.getText().trim();
-        boolean estado = jcEstado.getSelectedIndex() == 0;        
-        if (!nombre.isEmpty() 
-                && !desc.isEmpty() 
+        boolean estado = jcEstado.getSelectedIndex() == 0;
+        if (!nombre.isEmpty()
+                && !desc.isEmpty()
                 && !txtPrecio.getText().isEmpty()) {
             int precio = Integer.parseInt(txtPrecio.getText());
             Platillo p = new Platillo(nombre, desc, precio, estado);
@@ -619,13 +637,14 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarPlatilloActionPerformed
 
     /**
-     * Este evento evita que el precio de un platillo pueda ser mayor a 5 digitos
-     * y obliga a escribir números.
-     * @param evt 
+     * Este evento evita que el precio de un platillo pueda ser mayor a 5
+     * digitos y obliga a escribir números.
+     *
+     * @param evt
      */
     private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
         // TODO add your handling code here:
-        if (!Character.isDigit(evt.getKeyChar()) 
+        if (!Character.isDigit(evt.getKeyChar())
                 || txtPrecio.getText().length() > 5) {
             evt.consume();
         }
@@ -635,6 +654,62 @@ public class Main extends javax.swing.JFrame {
         JPopupMenu desp = new JPopupMenu();
         JMenuItem eliminar = new JMenuItem("Elminar");
 
+        if (tipo == MESA) {
+            JMenuItem editarCapacidad = new JMenuItem("Editar Capacidad");
+            editarCapacidad.addActionListener((java.awt.event.ActionEvent e1) -> {
+                int capacidad;
+                String strCapacidad = (JOptionPane.showInputDialog(null,
+                        "Cuál es la nueva capacidad de esta mesa",
+                        "Nueva Capacidad",
+                        JOptionPane.QUESTION_MESSAGE));
+                if (strCapacidad != null) {
+                    if (isNumber(strCapacidad)) {
+                        capacidad = Integer.parseInt(strCapacidad);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ingrese un número",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                } else {
+                    return;
+                }
+                ((MesaImagen)componente).getMesa().setCapacidad(capacidad);
+                
+                Conexion.getInstance().getRef()
+                        .child("Mesas").orderByKey()
+                        .equalTo(((MesaImagen) componente).getClaveFirebase())
+                        .addChildEventListener(new ChildEventListener() {
+                     @Override
+                     public void onChildAdded(DataSnapshot ds, String string) {
+                        ds.getRef().setValue(((MesaImagen)componente).getMesa());
+                        bringData();
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot ds, String string) {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot ds) {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot ds, String string) {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError fe) {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+                });
+                
+            });    
+            desp.add(editarCapacidad);
+        }
+
         switch (tipo) {
             case MESA:
                 eliminar.addActionListener((java.awt.event.ActionEvent e1) -> {
@@ -642,32 +717,31 @@ public class Main extends javax.swing.JFrame {
                             .child("Mesas").orderByKey()
                             .equalTo(((MesaImagen) componente).getClaveFirebase())
                             .addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(DataSnapshot ds, String string) {
-                            ds.getRef().removeValue();
-                        }
+                                @Override
+                                public void onChildAdded(DataSnapshot ds, String string) {
+                                    ds.getRef().removeValue();
+                                }
 
-                        @Override
-                        public void onChildChanged(DataSnapshot ds, String string) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
+                                @Override
+                                public void onChildChanged(DataSnapshot ds, String string) {
+                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                                }
 
-                        @Override
-                        public void onChildRemoved(DataSnapshot ds) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
+                                @Override
+                                public void onChildRemoved(DataSnapshot ds) {
+                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                                }
 
-                        @Override
-                        public void onChildMoved(DataSnapshot ds, String string) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
+                                @Override
+                                public void onChildMoved(DataSnapshot ds, String string) {
+                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                                }
 
-                        @Override
-                        public void onCancelled(FirebaseError fe) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
-                    });
-                            
+                                @Override
+                                public void onCancelled(FirebaseError fe) {
+                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                                }
+                            });
                     mesas.remove((MesaImagen) componente);
                     panMapa.remove(componente);
                     panMapa.repaint();
@@ -679,35 +753,35 @@ public class Main extends javax.swing.JFrame {
                             .child("Lugares").orderByKey()
                             .equalTo(((LugarImagen) componente).getClaveFirebase())
                             .addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(DataSnapshot ds, String string) {
-                            ds.getRef().removeValue();
-                        }
+                                @Override
+                                public void onChildAdded(DataSnapshot ds, String string) {
+                                    ds.getRef().removeValue();
+                                }
 
-                        @Override
-                        public void onChildChanged(DataSnapshot ds, String string) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
+                                @Override
+                                public void onChildChanged(DataSnapshot ds, String string) {
+                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                                }
 
-                        @Override
-                        public void onChildRemoved(DataSnapshot ds) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
+                                @Override
+                                public void onChildRemoved(DataSnapshot ds) {
+                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                                }
 
-                        @Override
-                        public void onChildMoved(DataSnapshot ds, String string) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
+                                @Override
+                                public void onChildMoved(DataSnapshot ds, String string) {
+                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                                }
 
-                        @Override
-                        public void onCancelled(FirebaseError fe) {
-                            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        }
-                    });
+                                @Override
+                                public void onCancelled(FirebaseError fe) {
+                                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                                }
+                            });
                     lugares.remove((LugarImagen) componente);
                     panMapa.remove(componente);
                     panMapa.repaint();
-        });
+                });
                 break;
             default:
                 throw new Exception("No es un tipo");
@@ -720,15 +794,15 @@ public class Main extends javax.swing.JFrame {
     private void btnCambiarEstadoActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         Platillo p;
-        if(!listMenu.isSelectionEmpty())
+        if (!listMenu.isSelectionEmpty()) {
             p = platillos.get(listMenu.getSelectedIndex());
-        else{
+        } else {
             JOptionPane.showMessageDialog(null,
                     "Debe seleccionar un platillo", "Error",
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-        platillos.get(listMenu.getSelectedIndex()).cambiarEstado();        
+        platillos.get(listMenu.getSelectedIndex()).cambiarEstado();
 
         Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre")
                 .equalTo(p.getNombre()).addChildEventListener(new ChildEventListener() {
@@ -764,9 +838,9 @@ public class Main extends javax.swing.JFrame {
 
         // TODO add your handling code here:
         Platillo p;
-        if(!listMenu.isSelectionEmpty())
+        if (!listMenu.isSelectionEmpty()) {
             p = platillos.get(listMenu.getSelectedIndex());
-        else{
+        } else {
             JOptionPane.showMessageDialog(null,
                     "Debe seleccionar un platillo", "Error",
                     JOptionPane.ERROR_MESSAGE);
@@ -919,6 +993,7 @@ public class Main extends javax.swing.JFrame {
                         }
                         updatePlati();
                     }
+
                     @Override
                     public void onCancelled(FirebaseError fe) {
 
@@ -942,6 +1017,7 @@ public class Main extends javax.swing.JFrame {
                         }
                         updaRes();
                     }
+
                     @Override
                     public void onCancelled(FirebaseError fe) {
                         JOptionPane.showMessageDialog(null,
@@ -952,8 +1028,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     /**
-     * Permite crear en el mapa un lugar o una mesa, y lo almacena localmente
-     *
+     * Permite crear en el mapa un lugar o una mesa, y lo almacena localmente     
      * @param tipo Indica si se está creando una mesa o un lugar general
      */
     private boolean createSpace(int tipo) throws Exception {
@@ -1017,8 +1092,9 @@ public class Main extends javax.swing.JFrame {
 
     /**
      * Verifica si una cadena de texto es solo un número
+     *
      * @param string
-     * @return 
+     * @return
      */
     public boolean isNumber(String string) {
         if (string == null || string.isEmpty()) {
