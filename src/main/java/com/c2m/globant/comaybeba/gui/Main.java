@@ -18,10 +18,8 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
-import java.awt.AWTEventMulticaster;
-import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JMenuItem;
@@ -70,7 +68,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         this.getContentPane().setBackground(Color.BLACK);
-        jtpDatos.setForeground(Color.red);
+        panRegistro.setForeground(Color.red);
         btnMesa.setToolTipText("Añadir Mesa");
         btnGeneral.setToolTipText("Añadir Lugar General");
         rbClientes.setSelected(true);
@@ -110,10 +108,10 @@ public class Main extends javax.swing.JFrame {
     private void updaRes() {
         //TODO: Implementar
         tableReservas.removeAll();
-        String columns[] = {"Usuario", "Fecha", "Mesa"};
+        String columns[] = {"Usuario", "Fecha", "Mesa","Hora","Llegada"};
         DefaultTableModel model = new DefaultTableModel(null, columns);
         reservas.forEach((Reserva r) -> {
-            Object a[] = {r.getUser(), r.getFecha(), r.getMesa()};
+            Object a[] = {r.getUser(), r.getFecha(), r.getMesa(),r.getHora_programada(),r.getHora_llegada()};
             model.addRow(a);
         });
         tableReservas.setModel(model);
@@ -129,7 +127,7 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         buGroupEstadisticas = new javax.swing.ButtonGroup();
-        jtpDatos = new javax.swing.JTabbedPane();
+        panRegistro = new javax.swing.JTabbedPane();
         panDiseñar = new javax.swing.JPanel();
         btnMesa = new javax.swing.JButton();
         btnGeneral = new javax.swing.JButton();
@@ -159,6 +157,7 @@ public class Main extends javax.swing.JFrame {
         btnMostrarReservas = new javax.swing.JButton();
         jcReservas = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
+        btnLlegar = new javax.swing.JButton();
         panEstadisticas = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         rbClientes = new javax.swing.JRadioButton();
@@ -178,9 +177,9 @@ public class Main extends javax.swing.JFrame {
         setIconImages(null);
         setResizable(false);
 
-        jtpDatos.setBackground(new java.awt.Color(0, 0, 0));
-        jtpDatos.setForeground(new java.awt.Color(255, 0, 0));
-        jtpDatos.setFont(new java.awt.Font("Book Antiqua", 1, 11)); // NOI18N
+        panRegistro.setBackground(new java.awt.Color(0, 0, 0));
+        panRegistro.setForeground(new java.awt.Color(255, 0, 0));
+        panRegistro.setFont(new java.awt.Font("Book Antiqua", 1, 11)); // NOI18N
 
         panDiseñar.setBackground(new java.awt.Color(255, 255, 255));
         panDiseñar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -231,7 +230,7 @@ public class Main extends javax.swing.JFrame {
         });
         panDiseñar.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 394, 90, 31));
 
-        jtpDatos.addTab("Diseñar", panDiseñar);
+        panRegistro.addTab("Diseñar", panDiseñar);
 
         panMenu.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -303,7 +302,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(112, 112, 112))
         );
 
-        jtpDatos.addTab("Menú", panMenu);
+        panRegistro.addTab("Menú", panMenu);
 
         panCrearMenu.setBackground(new java.awt.Color(255, 255, 255));
         panCrearMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -356,27 +355,27 @@ public class Main extends javax.swing.JFrame {
 
         panCrearMenu.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 310, 100));
 
-        jtpDatos.addTab("Crear Menú", null, panCrearMenu, "");
+        panRegistro.addTab("Crear Menú", null, panCrearMenu, "");
 
         panReservas.setBackground(new java.awt.Color(255, 255, 255));
         panReservas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tableReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Usuario", "Fecha", "Mesa"
+                "Usuario", "Fecha", "Mesa", "Hora", "Llegada"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -387,6 +386,7 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableReservas.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tableReservas);
 
         panReservas.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
@@ -399,17 +399,27 @@ public class Main extends javax.swing.JFrame {
                 btnMostrarReservasActionPerformed(evt);
             }
         });
-        panReservas.add(btnMostrarReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 243, -1, -1));
+        panReservas.add(btnMostrarReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, 90, -1));
 
         jcReservas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activas", "Ocupadas", "Pendientes" }));
-        panReservas.add(jcReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 193, 90, 32));
+        panReservas.add(jcReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 90, 32));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 153, 0));
         jLabel10.setText("Reservas");
-        panReservas.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, -1, -1));
+        panReservas.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, -1, -1));
 
-        jtpDatos.addTab("Reservas", panReservas);
+        btnLlegar.setBackground(new java.awt.Color(255, 204, 102));
+        btnLlegar.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
+        btnLlegar.setText("Llegar");
+        btnLlegar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLlegarActionPerformed(evt);
+            }
+        });
+        panReservas.add(btnLlegar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, 90, -1));
+
+        panRegistro.addTab("Reservas", panReservas);
 
         panEstadisticas.setBackground(new java.awt.Color(255, 255, 255));
         panEstadisticas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -516,7 +526,7 @@ public class Main extends javax.swing.JFrame {
         jLabel9.setText("Documento");
         panEstadisticas.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 291, -1));
 
-        jtpDatos.addTab("Estadísticas", panEstadisticas);
+        panRegistro.addTab("Estadísticas", panEstadisticas);
 
         lbTitulo.setFont(new java.awt.Font("Bodoni MT Black", 3, 14)); // NOI18N
         lbTitulo.setForeground(new java.awt.Color(255, 204, 0));
@@ -539,7 +549,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(lbTitulo)
                 .addGap(18, 18, 18)
                 .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jtpDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -548,107 +558,11 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(6, 6, 6)
-                .addComponent(jtpDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void rbMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMenuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbMenuActionPerformed
-
-    private void btnMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMesaActionPerformed
-        try {
-            createSpace(MESA);
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnMesaActionPerformed
-
-    private void btnGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneralActionPerformed
-        try {
-            createSpace(GENERAL);
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnGeneralActionPerformed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
-        for (int i = 0; i < mesas.size(); i++) {
-            if (mesas.get(i).getClaveFirebase() == null) {
-                Firebase clave = Conexion.getInstance().getRef().child("Mesas")
-                        .push();
-                mesas.get(i).setClaveFirebase(clave.getKey());
-                clave.setValue(mesas.get(i).getMesa());
-            } else {
-                Conexion.getInstance().getRef().child("Mesas")
-                        .child(mesas.get(i).getClaveFirebase())
-                        .setValue(mesas.get(i).getMesa());
-            }
-        }
-        for (int i = 0; i < lugares.size(); i++) {
-            if (lugares.get(i).getClaveFirebase() == null) {
-                Firebase clave = Conexion.getInstance().getRef().child("Lugares")
-                        .push();
-                lugares.get(i).setClaveFirebase(clave.getKey());
-                clave.setValue(lugares.get(i).getLugar());
-            } else {
-                Conexion.getInstance().getRef().child("Lugares")
-                        .child(lugares.get(i).getClaveFirebase())
-                        .setValue(lugares.get(i).getLugar());
-            }
-        }
-
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void jbVerdetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerdetalleActionPerformed
-        // TODO add your handling code here:
-        if (!listMenu.isSelectionEmpty()) {
-            Detalle d = new Detalle(platillos.get(listMenu.getSelectedIndex()));
-            d.setVisible(true);
-        } else {
-            JOptionPane.showConfirmDialog(null, "Seleccione un platillo",
-                    "No hay platillo seleccionado", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jbVerdetalleActionPerformed
-
-    private void btnAgregarPlatilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPlatilloActionPerformed
-        // TODO add your handling code here:
-        String nombre = txtNombrePlatillo.getText().trim();
-        String desc = txtDescripcionPlatillo.getText().trim();
-        boolean estado = jcEstado.getSelectedIndex() == 0;
-        if (!nombre.isEmpty()
-                && !desc.isEmpty()
-                && !txtPrecio.getText().isEmpty()) {
-            int precio = Integer.parseInt(txtPrecio.getText());
-            Platillo p = new Platillo(nombre, desc, precio, estado);
-            Conexion.getInstance().getRef().child("Platillos").push().setValue(p);
-            updatePlati();
-            JOptionPane.showMessageDialog(null,
-                    "Platillo Creado exitosamente",
-                    "Éxito",
-                    JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showConfirmDialog(null, "Debe llenar todos los campos",
-                    "Campos Vacíos", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnAgregarPlatilloActionPerformed
-
-    /**
-     * Este evento evita que el precio de un platillo pueda ser mayor a 5
-     * digitos y obliga a escribir números.
-     *
-     * @param evt
-     */
-    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
-        // TODO add your handling code here:
-        if (!Character.isDigit(evt.getKeyChar())
-                || txtPrecio.getText().length() > 5) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtPrecioKeyTyped
 
     private void addPopUpMenu(int tipo, Image componente) throws Exception {
         JPopupMenu desp = new JPopupMenu();
@@ -791,7 +705,208 @@ public class Main extends javax.swing.JFrame {
         componente.setComponentPopupMenu(desp);
     }
 
-    private void btnCambiarEstadoActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        bringData();
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void rbMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbMenuActionPerformed
+
+    private void rbMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMesasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbMesasActionPerformed
+
+    private void rbClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbClientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbClientesActionPerformed
+
+    private void btnMostrarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarReservasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMostrarReservasActionPerformed
+
+    /**
+     * Este evento evita que el precio de un platillo pueda ser mayor a 5
+     * digitos y obliga a escribir números.
+     *
+     * @param evt
+     */
+    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isDigit(evt.getKeyChar())
+            || txtPrecio.getText().length() > 5) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPrecioKeyTyped
+
+    private void btnAgregarPlatilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPlatilloActionPerformed
+        // TODO add your handling code here:
+        String nombre = txtNombrePlatillo.getText().trim();
+        String desc = txtDescripcionPlatillo.getText().trim();
+        boolean estado = jcEstado.getSelectedIndex() == 0;
+        if (!nombre.isEmpty()
+            && !desc.isEmpty()
+            && !txtPrecio.getText().isEmpty()) {
+            int precio = Integer.parseInt(txtPrecio.getText());
+            Platillo p = new Platillo(nombre, desc, precio, estado);
+            Conexion.getInstance().getRef().child("Platillos").push().setValue(p);
+            updatePlati();
+            JOptionPane.showMessageDialog(null,
+                "Platillo Creado exitosamente",
+                "Éxito",
+                JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showConfirmDialog(null, "Debe llenar todos los campos",
+                "Campos Vacíos", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAgregarPlatilloActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+
+        // TODO add your handling code here:
+        Platillo p;
+        if (!listMenu.isSelectionEmpty()) {
+            p = platillos.get(listMenu.getSelectedIndex());
+        } else {
+            JOptionPane.showMessageDialog(null,
+                "Debe seleccionar un platillo", "Error",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre")
+        .equalTo(p.getNombre()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+                snapshot.getRef().removeValue();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot ds, String string) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot ds) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot ds, String string) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void onCancelled(FirebaseError fe) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        platillos.remove(listMenu.getSelectedIndex());
+        updatePlati();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+                                            
+                                     
+
+    private void jbVerdetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerdetalleActionPerformed
+        // TODO add your handling code here:
+        if (!listMenu.isSelectionEmpty()) {
+            Detalle d = new Detalle(platillos.get(listMenu.getSelectedIndex()));
+            d.setVisible(true);
+        } else {
+            JOptionPane.showConfirmDialog(null, "Seleccione un platillo",
+                "No hay platillo seleccionado", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbVerdetalleActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        for (int i = 0; i < mesas.size(); i++) {
+            if (mesas.get(i).getClaveFirebase() == null) {
+                Firebase clave = Conexion.getInstance().getRef().child("Mesas")
+                .push();
+                mesas.get(i).setClaveFirebase(clave.getKey());
+                clave.setValue(mesas.get(i).getMesa());
+            } else {
+                Conexion.getInstance().getRef().child("Mesas")
+                .child(mesas.get(i).getClaveFirebase())
+                .setValue(mesas.get(i).getMesa());
+            }
+        }
+        for (int i = 0; i < lugares.size(); i++) {
+            if (lugares.get(i).getClaveFirebase() == null) {
+                Firebase clave = Conexion.getInstance().getRef().child("Lugares")
+                .push();
+                lugares.get(i).setClaveFirebase(clave.getKey());
+                clave.setValue(lugares.get(i).getLugar());
+            } else {
+                Conexion.getInstance().getRef().child("Lugares")
+                .child(lugares.get(i).getClaveFirebase())
+                .setValue(lugares.get(i).getLugar());
+            }
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneralActionPerformed
+        try {
+            createSpace(GENERAL);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnGeneralActionPerformed
+
+    private void btnMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMesaActionPerformed
+        try {
+            createSpace(MESA);
+        } catch (Exception ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnMesaActionPerformed
+
+    private void btnLlegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLlegarActionPerformed
+        // TODO add your handling code here:
+        int[] selected = tableReservas.getSelectedRows();
+        Calendar c = Calendar.getInstance();
+        for(int i : selected){
+            if(reservas.get(i).getHora_llegada() == null){
+                int hora = c.get(Calendar.HOUR_OF_DAY);
+                int min = c.get(Calendar.MINUTE);
+                String tiempo = hora + ":" + min;
+                reservas.get(i).setHora_llegada(tiempo);
+                Conexion.getInstance().getRef().child("Reservas")
+                        .orderByChild("id").equalTo(reservas.get(i).getId())
+                        .addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot ds, String string) {
+                        ds.getRef().setValue(reservas.get(i));
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot ds, String string) {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot ds) {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot ds, String string) {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError fe) {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+                });
+            }
+        }
+        updaRes();
+    }//GEN-LAST:event_btnLlegarActionPerformed
+
+    private void btnCambiarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarEstadoActionPerformed
         // TODO add your handling code here:
         Platillo p;
         if (!listMenu.isSelectionEmpty()) {
@@ -832,70 +947,11 @@ public class Main extends javax.swing.JFrame {
             }
         });
         updatePlati();
-    }
+    }//GEN-LAST:event_btnCambiarEstadoActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-
-        // TODO add your handling code here:
-        Platillo p;
-        if (!listMenu.isSelectionEmpty()) {
-            p = platillos.get(listMenu.getSelectedIndex());
-        } else {
-            JOptionPane.showMessageDialog(null,
-                    "Debe seleccionar un platillo", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre")
-                .equalTo(p.getNombre()).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                snapshot.getRef().removeValue();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot ds, String string) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot ds) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot ds, String string) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void onCancelled(FirebaseError fe) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        });
-        platillos.remove(listMenu.getSelectedIndex());
-        updatePlati();
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
-        bringData();
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
-    private void btnMostrarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarReservasActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_btnMostrarReservasActionPerformed
-
-    private void rbClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbClientesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbClientesActionPerformed
-
-    private void rbMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMesasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbMesasActionPerformed
-
+    
+    
+    
     /**
      * Trae todos los datos de la base de datos
      */
@@ -1163,6 +1219,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGeneral;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnLlegar;
     private javax.swing.JButton btnMesa;
     private javax.swing.JButton btnMostrar;
     private javax.swing.JButton btnMostrarReservas;
@@ -1182,7 +1239,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jbVerdetalle;
     private javax.swing.JComboBox<String> jcEstado;
     private javax.swing.JComboBox<String> jcReservas;
-    private javax.swing.JTabbedPane jtpDatos;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JList<String> listMenu;
     private javax.swing.JScrollPane lista;
@@ -1191,6 +1247,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel panEstadisticas;
     private javax.swing.JPanel panMapa;
     private javax.swing.JPanel panMenu;
+    private javax.swing.JTabbedPane panRegistro;
     private javax.swing.JPanel panReservas;
     private javax.swing.JRadioButton rbClientes;
     private javax.swing.JRadioButton rbMenu;
