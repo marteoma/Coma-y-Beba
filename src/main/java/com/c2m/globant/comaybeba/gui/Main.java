@@ -108,10 +108,10 @@ public class Main extends javax.swing.JFrame {
     private void updaRes() {
         //TODO: Implementar
         tableReservas.removeAll();
-        String columns[] = {"Usuario", "Fecha", "Mesa","Hora","Llegada"};
+        String columns[] = {"Usuario", "Fecha", "Mesa", "Hora", "Llegada"};
         DefaultTableModel model = new DefaultTableModel(null, columns);
         reservas.forEach((Reserva r) -> {
-            Object a[] = {r.getUser(), r.getFecha(), r.getMesa(),r.getHora_programada(),r.getHora_llegada()};
+            Object a[] = {r.getUser(), r.getFecha(), r.getMesa(), r.getHora_programada(), r.getHora_llegada()};
             model.addRow(a);
         });
         tableReservas.setModel(model);
@@ -127,6 +127,16 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         buGroupEstadisticas = new javax.swing.ButtonGroup();
+        panEstadisticas = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        rbClientes = new javax.swing.JRadioButton();
+        rbMesas = new javax.swing.JRadioButton();
+        rbMenu = new javax.swing.JRadioButton();
+        jLabel8 = new javax.swing.JLabel();
+        btnMostrar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableEstadisticas = new javax.swing.JTable();
+        jLabel9 = new javax.swing.JLabel();
         tabbedPane = new javax.swing.JTabbedPane();
         panDiseñar = new javax.swing.JPanel();
         btnMesa = new javax.swing.JButton();
@@ -158,22 +168,119 @@ public class Main extends javax.swing.JFrame {
         jcReservas = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         btnLlegar = new javax.swing.JButton();
-        panEstadisticas = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        rbClientes = new javax.swing.JRadioButton();
-        rbMesas = new javax.swing.JRadioButton();
-        rbMenu = new javax.swing.JRadioButton();
-        jLabel8 = new javax.swing.JLabel();
-        btnMostrar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableEstadisticas = new javax.swing.JTable();
-        jLabel9 = new javax.swing.JLabel();
         panInformes = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         txtPromedioLlegada = new javax.swing.JTextField();
         btnActualizarInformes = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        txtPlatilloMasPedido = new javax.swing.JTextField();
         lbTitulo = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
+
+        panEstadisticas.setBackground(new java.awt.Color(255, 255, 255));
+        panEstadisticas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setForeground(new java.awt.Color(255, 204, 0));
+
+        rbClientes.setBackground(new java.awt.Color(255, 255, 255));
+        buGroupEstadisticas.add(rbClientes);
+        rbClientes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rbClientes.setForeground(new java.awt.Color(255, 153, 0));
+        rbClientes.setText("Clientes");
+        rbClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbClientesActionPerformed(evt);
+            }
+        });
+
+        rbMesas.setBackground(new java.awt.Color(255, 255, 255));
+        buGroupEstadisticas.add(rbMesas);
+        rbMesas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rbMesas.setForeground(new java.awt.Color(255, 153, 0));
+        rbMesas.setText("Mesas");
+        rbMesas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbMesasActionPerformed(evt);
+            }
+        });
+
+        rbMenu.setBackground(new java.awt.Color(255, 255, 255));
+        buGroupEstadisticas.add(rbMenu);
+        rbMenu.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        rbMenu.setForeground(new java.awt.Color(255, 153, 0));
+        rbMenu.setText("Menú");
+        rbMenu.setToolTipText("");
+        rbMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbMenuActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel8.setText("Reportes");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbMenu)
+                            .addComponent(rbMesas))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
+                .addComponent(rbClientes)
+                .addGap(18, 18, 18)
+                .addComponent(rbMesas)
+                .addGap(18, 18, 18)
+                .addComponent(rbMenu)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
+        panEstadisticas.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 22, -1, -1));
+
+        btnMostrar.setBackground(new java.awt.Color(255, 204, 102));
+        btnMostrar.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
+        btnMostrar.setText("Mostrar");
+        panEstadisticas.add(btnMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+
+        tableEstadisticas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tableEstadisticas);
+
+        panEstadisticas.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 304, 241));
+
+        jLabel9.setBackground(new java.awt.Color(204, 255, 204));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel9.setText("Documento");
+        panEstadisticas.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 291, -1));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 153, 0));
@@ -425,113 +532,6 @@ public class Main extends javax.swing.JFrame {
 
         tabbedPane.addTab("Reservas", panReservas);
 
-        panEstadisticas.setBackground(new java.awt.Color(255, 255, 255));
-        panEstadisticas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setForeground(new java.awt.Color(255, 204, 0));
-
-        rbClientes.setBackground(new java.awt.Color(255, 255, 255));
-        buGroupEstadisticas.add(rbClientes);
-        rbClientes.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rbClientes.setForeground(new java.awt.Color(255, 153, 0));
-        rbClientes.setText("Clientes");
-        rbClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbClientesActionPerformed(evt);
-            }
-        });
-
-        rbMesas.setBackground(new java.awt.Color(255, 255, 255));
-        buGroupEstadisticas.add(rbMesas);
-        rbMesas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rbMesas.setForeground(new java.awt.Color(255, 153, 0));
-        rbMesas.setText("Mesas");
-        rbMesas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbMesasActionPerformed(evt);
-            }
-        });
-
-        rbMenu.setBackground(new java.awt.Color(255, 255, 255));
-        buGroupEstadisticas.add(rbMenu);
-        rbMenu.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        rbMenu.setForeground(new java.awt.Color(255, 153, 0));
-        rbMenu.setText("Menú");
-        rbMenu.setToolTipText("");
-        rbMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbMenuActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel8.setText("Reportes");
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rbClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rbMenu)
-                            .addComponent(rbMesas))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addGap(18, 18, 18))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addGap(18, 18, 18)
-                .addComponent(rbClientes)
-                .addGap(18, 18, 18)
-                .addComponent(rbMesas)
-                .addGap(18, 18, 18)
-                .addComponent(rbMenu)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-
-        panEstadisticas.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 22, -1, -1));
-
-        btnMostrar.setBackground(new java.awt.Color(255, 204, 102));
-        btnMostrar.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
-        btnMostrar.setText("Mostrar");
-        panEstadisticas.add(btnMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
-
-        tableEstadisticas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(tableEstadisticas);
-
-        panEstadisticas.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 304, 241));
-
-        jLabel9.setBackground(new java.awt.Color(204, 255, 204));
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel9.setText("Documento");
-        panEstadisticas.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 291, -1));
-
-        tabbedPane.addTab("Estadísticas", panEstadisticas);
-
         panInformes.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -551,6 +551,14 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel12.setText("Platillo más pedido");
+
+        txtPlatilloMasPedido.setEditable(false);
+        txtPlatilloMasPedido.setBackground(new java.awt.Color(255, 255, 255));
+        txtPlatilloMasPedido.setToolTipText("Tiempo promedio de llegada en minutos.");
+
         javax.swing.GroupLayout panInformesLayout = new javax.swing.GroupLayout(panInformes);
         panInformes.setLayout(panInformesLayout);
         panInformesLayout.setHorizontalGroup(
@@ -559,6 +567,8 @@ public class Main extends javax.swing.JFrame {
                 .addGap(58, 58, 58)
                 .addGroup(panInformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnActualizarInformes)
+                    .addComponent(txtPlatilloMasPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
                     .addComponent(txtPromedioLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
                 .addContainerGap(307, Short.MAX_VALUE))
@@ -566,13 +576,17 @@ public class Main extends javax.swing.JFrame {
         panInformesLayout.setVerticalGroup(
             panInformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panInformesLayout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel11)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addComponent(txtPromedioLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(37, 37, 37)
+                .addComponent(jLabel12)
+                .addGap(18, 18, 18)
+                .addComponent(txtPlatilloMasPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
                 .addComponent(btnActualizarInformes)
-                .addContainerGap(231, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         tabbedPane.addTab("Informes", panInformes);
@@ -642,40 +656,40 @@ public class Main extends javax.swing.JFrame {
                 } else {
                     return;
                 }
-                ((MesaImagen)componente).getMesa().setCapacidad(capacidad);
-                
+                ((MesaImagen) componente).getMesa().setCapacidad(capacidad);
+
                 Conexion.getInstance().getRef()
                         .child("Mesas").orderByKey()
                         .equalTo(((MesaImagen) componente).getClaveFirebase())
                         .addChildEventListener(new ChildEventListener() {
-                     @Override
-                     public void onChildAdded(DataSnapshot ds, String string) {
-                        ds.getRef().setValue(((MesaImagen)componente).getMesa());
-                        bringData();
-                    }
+                            @Override
+                            public void onChildAdded(DataSnapshot ds, String string) {
+                                ds.getRef().setValue(((MesaImagen) componente).getMesa());
+                                bringData();
+                            }
 
-                    @Override
-                    public void onChildChanged(DataSnapshot ds, String string) {
-                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                    }
+                            @Override
+                            public void onChildChanged(DataSnapshot ds, String string) {
+                                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                            }
 
-                    @Override
-                    public void onChildRemoved(DataSnapshot ds) {
-                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                    }
+                            @Override
+                            public void onChildRemoved(DataSnapshot ds) {
+                                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                            }
 
-                    @Override
-                    public void onChildMoved(DataSnapshot ds, String string) {
-                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                    }
+                            @Override
+                            public void onChildMoved(DataSnapshot ds, String string) {
+                                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                            }
 
-                    @Override
-                    public void onCancelled(FirebaseError fe) {
-                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                    }
-                });
-                
-            });    
+                            @Override
+                            public void onCancelled(FirebaseError fe) {
+                                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                            }
+                        });
+
+            });
             desp.add(editarCapacidad);
         }
 
@@ -781,40 +795,40 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         int[] selected = tableReservas.getSelectedRows();
         Calendar c = Calendar.getInstance();
-        for(int i : selected){
-            if(reservas.get(i).getHora_llegada() == null){
+        for (int i : selected) {
+            if (reservas.get(i).getHora_llegada() == null) {
                 int hora = c.get(Calendar.HOUR_OF_DAY);
                 int min = c.get(Calendar.MINUTE);
                 String tiempo = hora + ":" + min;
                 reservas.get(i).setHora_llegada(tiempo);
                 Conexion.getInstance().getRef().child("Reservas")
-                .orderByChild("id").equalTo(reservas.get(i).getId())
-                .addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot ds, String string) {
-                        ds.getRef().setValue(reservas.get(i));
-                    }
+                        .orderByChild("id").equalTo(reservas.get(i).getId())
+                        .addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(DataSnapshot ds, String string) {
+                                ds.getRef().setValue(reservas.get(i));
+                            }
 
-                    @Override
-                    public void onChildChanged(DataSnapshot ds, String string) {
-                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                    }
+                            @Override
+                            public void onChildChanged(DataSnapshot ds, String string) {
+                                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                            }
 
-                    @Override
-                    public void onChildRemoved(DataSnapshot ds) {
-                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                    }
+                            @Override
+                            public void onChildRemoved(DataSnapshot ds) {
+                                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                            }
 
-                    @Override
-                    public void onChildMoved(DataSnapshot ds, String string) {
-                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                    }
+                            @Override
+                            public void onChildMoved(DataSnapshot ds, String string) {
+                                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                            }
 
-                    @Override
-                    public void onCancelled(FirebaseError fe) {
-                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                    }
-                });
+                            @Override
+                            public void onCancelled(FirebaseError fe) {
+                                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                            }
+                        });
             }
         }
         updaRes();
@@ -834,19 +848,19 @@ public class Main extends javax.swing.JFrame {
         String desc = txtDescripcionPlatillo.getText().trim();
         boolean estado = jcEstado.getSelectedIndex() == 0;
         if (!nombre.isEmpty()
-            && !desc.isEmpty()
-            && !txtPrecio.getText().isEmpty()) {
+                && !desc.isEmpty()
+                && !txtPrecio.getText().isEmpty()) {
             int precio = Integer.parseInt(txtPrecio.getText());
-            Platillo p = new Platillo(nombre, desc, precio, estado);
+            Platillo p = new Platillo(nombre, desc, precio, estado, 0);
             Conexion.getInstance().getRef().child("Platillos").push().setValue(p);
             updatePlati();
             JOptionPane.showMessageDialog(null,
-                "Platillo Creado exitosamente",
-                "Éxito",
-                JOptionPane.INFORMATION_MESSAGE);
+                    "Platillo Creado exitosamente",
+                    "Éxito",
+                    JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showConfirmDialog(null, "Debe llenar todos los campos",
-                "Campos Vacíos", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                    "Campos Vacíos", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAgregarPlatilloActionPerformed
 
@@ -858,13 +872,13 @@ public class Main extends javax.swing.JFrame {
             p = platillos.get(listMenu.getSelectedIndex());
         } else {
             JOptionPane.showMessageDialog(null,
-                "Debe seleccionar un platillo", "Error",
-                JOptionPane.ERROR_MESSAGE);
+                    "Debe seleccionar un platillo", "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre")
-        .equalTo(p.getNombre()).addChildEventListener(new ChildEventListener() {
+                .equalTo(p.getNombre()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
                 snapshot.getRef().removeValue();
@@ -901,14 +915,14 @@ public class Main extends javax.swing.JFrame {
             p = platillos.get(listMenu.getSelectedIndex());
         } else {
             JOptionPane.showMessageDialog(null,
-                "Debe seleccionar un platillo", "Error",
-                JOptionPane.ERROR_MESSAGE);
+                    "Debe seleccionar un platillo", "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
         platillos.get(listMenu.getSelectedIndex()).cambiarEstado();
 
         Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre")
-        .equalTo(p.getNombre()).addChildEventListener(new ChildEventListener() {
+                .equalTo(p.getNombre()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChild) {
                 snapshot.getRef().setValue(p);
@@ -944,7 +958,7 @@ public class Main extends javax.swing.JFrame {
             d.setVisible(true);
         } else {
             JOptionPane.showConfirmDialog(null, "Seleccione un platillo",
-                "No hay platillo seleccionado", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                    "No hay platillo seleccionado", JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbVerdetalleActionPerformed
 
@@ -953,25 +967,25 @@ public class Main extends javax.swing.JFrame {
         for (int i = 0; i < mesas.size(); i++) {
             if (mesas.get(i).getClaveFirebase() == null) {
                 Firebase clave = Conexion.getInstance().getRef().child("Mesas")
-                .push();
+                        .push();
                 mesas.get(i).setClaveFirebase(clave.getKey());
                 clave.setValue(mesas.get(i).getMesa());
             } else {
                 Conexion.getInstance().getRef().child("Mesas")
-                .child(mesas.get(i).getClaveFirebase())
-                .setValue(mesas.get(i).getMesa());
+                        .child(mesas.get(i).getClaveFirebase())
+                        .setValue(mesas.get(i).getMesa());
             }
         }
         for (int i = 0; i < lugares.size(); i++) {
             if (lugares.get(i).getClaveFirebase() == null) {
                 Firebase clave = Conexion.getInstance().getRef().child("Lugares")
-                .push();
+                        .push();
                 lugares.get(i).setClaveFirebase(clave.getKey());
                 clave.setValue(lugares.get(i).getLugar());
             } else {
                 Conexion.getInstance().getRef().child("Lugares")
-                .child(lugares.get(i).getClaveFirebase())
-                .setValue(lugares.get(i).getLugar());
+                        .child(lugares.get(i).getClaveFirebase())
+                        .setValue(lugares.get(i).getLugar());
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -1001,35 +1015,30 @@ public class Main extends javax.swing.JFrame {
     private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {
         // TODO add your handling code here:
         if (!Character.isDigit(evt.getKeyChar())
-            || txtPrecio.getText().length() > 5) {
+                || txtPrecio.getText().length() > 5) {
             evt.consume();
         }
     }
-    
+
     private void btnActualizarInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarInformesActionPerformed
         // TODO add your handling code here:
         txtPromedioLlegada.setText(promedioLlegada().toString());
+        txtPlatilloMasPedido.setText(mejorPlatillo());
     }//GEN-LAST:event_btnActualizarInformesActionPerformed
 
-    private Float promedioLlegada(){
+    private Float promedioLlegada() {
         int acum = 0;
-        for(Reserva r : reservas){
+        for (Reserva r : reservas) {
             String[] split1 = r.getHora_llegada().split(":");
-            int min_llegada = Integer.parseInt(split1[0])*60 + Integer.parseInt(split1[1]);
+            int min_llegada = Integer.parseInt(split1[0]) * 60 + Integer.parseInt(split1[1]);
             String[] split2 = r.getHora_programada().split(":");
-            int min_programada = Integer.parseInt(split2[0])*60 + Integer.parseInt(split2[1]);
+            int min_programada = Integer.parseInt(split2[0]) * 60 + Integer.parseInt(split2[1]);
             acum += min_llegada - min_programada;
         }
         float promedio = acum / reservas.size();
         return promedio;
     }
-    
-                                           
-                                     
 
-    
-    
-    
     /**
      * Trae todos los datos de la base de datos
      */
@@ -1139,18 +1148,18 @@ public class Main extends javax.swing.JFrame {
      * Trae la información sobre las reservas de la base de datos y las almacena
      */
     private void bringReservas() {
-        Calendar c  = Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         Conexion.getInstance().getRef().child("Reservas").
                 addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot ds) {
                         for (DataSnapshot d : ds.getChildren()) {
                             Reserva m = d.getValue(Reserva.class);
-                            if(/*Integer.parseInt(m.getFecha().substring(3, 5)) >= c.get(Calendar.MONTH) &&
+                            if (/*Integer.parseInt(m.getFecha().substring(3, 5)) >= c.get(Calendar.MONTH) &&
                                     Integer.parseInt(m.getFecha().substring(6, 10)) >= c.get(Calendar.YEAR) &&
-                                    */!reservas.contains(m)){
+                                     */!reservas.contains(m)) {
                                 reservas.add(m);
-                            }                            
+                            }
                         }
                         updaRes();
                     }
@@ -1164,8 +1173,11 @@ public class Main extends javax.swing.JFrame {
                 });
     }
 
+   
+
     /**
-     * Permite crear en el mapa un lugar o una mesa, y lo almacena localmente     
+     * Permite crear en el mapa un lugar o una mesa, y lo almacena localmente
+     *
      * @param tipo Indica si se está creando una mesa o un lugar general
      */
     private boolean createSpace(int tipo) throws Exception {
@@ -1309,6 +1321,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1340,8 +1353,25 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTable tableReservas;
     private javax.swing.JTextArea txtDescripcionPlatillo;
     private javax.swing.JTextField txtNombrePlatillo;
+    private javax.swing.JTextField txtPlatilloMasPedido;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtPromedioLlegada;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Obtiene el mejor platillo del restaurante.
+     * Entíendase por el mejor, el que más veces se ha pedido.
+     * @return Nombre del mejor platillo
+     */
+    private String mejorPlatillo() {
+        int mayorCount = 0;
+        Platillo temp = platillos.get(0);
+        for(Platillo p : platillos){
+            if(p.getCount() > mayorCount){
+                mayorCount =  p.getCount();
+                temp = p;
+            }
+        }
+        return temp.getNombre();
+    }
 }

@@ -18,12 +18,15 @@ public class Platillo {
     private int precio;
     
     private boolean activo;
+    
+    private int count;
        
-    public Platillo(String name , String descr, int precio, boolean estado){
+    public Platillo(String name , String descr, int precio, boolean estado, int count){
         nombre = name;
         descripcion = descr;
         this.precio = precio;
         this.activo = estado;
+        this.count = count;
     }
     
     public Platillo(){}
@@ -115,5 +118,19 @@ public class Platillo {
              return nombre+ "- No Disponible";   
         }
     
+    }
+
+    /**
+     * @return the count
+     */
+    public int getCount() {
+        return count;
+    }
+
+    /**
+     * @param count the count to set
+     */
+    public void setCount(int count) {
+        this.count = count;
     }
 }
