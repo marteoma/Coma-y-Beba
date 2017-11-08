@@ -68,7 +68,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         this.getContentPane().setBackground(Color.BLACK);
-        panRegistro.setForeground(Color.red);
+        tabbedPane.setForeground(Color.red);
         btnMesa.setToolTipText("Añadir Mesa");
         btnGeneral.setToolTipText("Añadir Lugar General");
         rbClientes.setSelected(true);
@@ -127,7 +127,7 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         buGroupEstadisticas = new javax.swing.ButtonGroup();
-        panRegistro = new javax.swing.JTabbedPane();
+        tabbedPane = new javax.swing.JTabbedPane();
         panDiseñar = new javax.swing.JPanel();
         btnMesa = new javax.swing.JButton();
         btnGeneral = new javax.swing.JButton();
@@ -168,6 +168,10 @@ public class Main extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tableEstadisticas = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
+        panInformes = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        txtPromedioLlegada = new javax.swing.JTextField();
+        btnActualizarInformes = new javax.swing.JButton();
         lbTitulo = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
 
@@ -177,9 +181,9 @@ public class Main extends javax.swing.JFrame {
         setIconImages(null);
         setResizable(false);
 
-        panRegistro.setBackground(new java.awt.Color(0, 0, 0));
-        panRegistro.setForeground(new java.awt.Color(255, 0, 0));
-        panRegistro.setFont(new java.awt.Font("Book Antiqua", 1, 11)); // NOI18N
+        tabbedPane.setBackground(new java.awt.Color(0, 0, 0));
+        tabbedPane.setForeground(new java.awt.Color(255, 0, 0));
+        tabbedPane.setFont(new java.awt.Font("Book Antiqua", 1, 11)); // NOI18N
 
         panDiseñar.setBackground(new java.awt.Color(255, 255, 255));
         panDiseñar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -230,7 +234,7 @@ public class Main extends javax.swing.JFrame {
         });
         panDiseñar.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 394, 90, 31));
 
-        panRegistro.addTab("Diseñar", panDiseñar);
+        tabbedPane.addTab("Diseñar", panDiseñar);
 
         panMenu.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -277,9 +281,9 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addContainerGap(334, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panMenuLayout.createSequentialGroup()
-                .addContainerGap(102, Short.MAX_VALUE)
+                .addContainerGap(193, Short.MAX_VALUE)
                 .addComponent(jbVerdetalle)
                 .addGap(18, 18, 18)
                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -302,7 +306,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(112, 112, 112))
         );
 
-        panRegistro.addTab("Menú", panMenu);
+        tabbedPane.addTab("Menú", panMenu);
 
         panCrearMenu.setBackground(new java.awt.Color(255, 255, 255));
         panCrearMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -355,7 +359,7 @@ public class Main extends javax.swing.JFrame {
 
         panCrearMenu.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 310, 100));
 
-        panRegistro.addTab("Crear Menú", null, panCrearMenu, "");
+        tabbedPane.addTab("Crear Menú", null, panCrearMenu, "");
 
         panReservas.setBackground(new java.awt.Color(255, 255, 255));
         panReservas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -419,7 +423,7 @@ public class Main extends javax.swing.JFrame {
         });
         panReservas.add(btnLlegar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, 90, -1));
 
-        panRegistro.addTab("Reservas", panReservas);
+        tabbedPane.addTab("Reservas", panReservas);
 
         panEstadisticas.setBackground(new java.awt.Color(255, 255, 255));
         panEstadisticas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -526,7 +530,51 @@ public class Main extends javax.swing.JFrame {
         jLabel9.setText("Documento");
         panEstadisticas.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 291, -1));
 
-        panRegistro.addTab("Estadísticas", panEstadisticas);
+        tabbedPane.addTab("Estadísticas", panEstadisticas);
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel11.setText("Promedio Tiempo llegada");
+
+        txtPromedioLlegada.setEditable(false);
+        txtPromedioLlegada.setToolTipText("Tiempo promedio de llegada en minutos.");
+
+        btnActualizarInformes.setText("Actualizar");
+        btnActualizarInformes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarInformesActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panInformesLayout = new javax.swing.GroupLayout(panInformes);
+        panInformes.setLayout(panInformesLayout);
+        panInformesLayout.setHorizontalGroup(
+            panInformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panInformesLayout.createSequentialGroup()
+                .addGroup(panInformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panInformesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel11)
+                        .addGap(36, 36, 36)
+                        .addComponent(txtPromedioLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panInformesLayout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(btnActualizarInformes)))
+                .addContainerGap(376, Short.MAX_VALUE))
+        );
+        panInformesLayout.setVerticalGroup(
+            panInformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panInformesLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(panInformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtPromedioLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
+                .addComponent(btnActualizarInformes)
+                .addGap(154, 154, 154))
+        );
+
+        tabbedPane.addTab("Informes", panInformes);
 
         lbTitulo.setFont(new java.awt.Font("Bodoni MT Black", 3, 14)); // NOI18N
         lbTitulo.setForeground(new java.awt.Color(255, 204, 0));
@@ -545,11 +593,15 @@ public class Main extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(373, 373, 373)
+                .addGap(385, 385, 385)
                 .addComponent(lbTitulo)
                 .addGap(18, 18, 18)
-                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(panRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -557,8 +609,9 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(6, 6, 6)
-                .addComponent(panRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -722,23 +775,56 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rbClientesActionPerformed
 
+    private void btnLlegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLlegarActionPerformed
+        // TODO add your handling code here:
+        int[] selected = tableReservas.getSelectedRows();
+        Calendar c = Calendar.getInstance();
+        for(int i : selected){
+            if(reservas.get(i).getHora_llegada() == null){
+                int hora = c.get(Calendar.HOUR_OF_DAY);
+                int min = c.get(Calendar.MINUTE);
+                String tiempo = hora + ":" + min;
+                reservas.get(i).setHora_llegada(tiempo);
+                Conexion.getInstance().getRef().child("Reservas")
+                .orderByChild("id").equalTo(reservas.get(i).getId())
+                .addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot ds, String string) {
+                        ds.getRef().setValue(reservas.get(i));
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot ds, String string) {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot ds) {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot ds, String string) {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError fe) {
+                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    }
+                });
+            }
+        }
+        updaRes();
+    }//GEN-LAST:event_btnLlegarActionPerformed
+
     private void btnMostrarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarReservasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMostrarReservasActionPerformed
 
-    /**
-     * Este evento evita que el precio de un platillo pueda ser mayor a 5
-     * digitos y obliga a escribir números.
-     *
-     * @param evt
-     */
-    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
-        // TODO add your handling code here:
-        if (!Character.isDigit(evt.getKeyChar())
-            || txtPrecio.getText().length() > 5) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtPrecioKeyTyped
+//GEN-FIRST:event_txtPrecioKeyTyped
+ 
+//GEN-LAST:event_txtPrecioKeyTyped
 
     private void btnAgregarPlatilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPlatilloActionPerformed
         // TODO add your handling code here:
@@ -805,8 +891,49 @@ public class Main extends javax.swing.JFrame {
         platillos.remove(listMenu.getSelectedIndex());
         updatePlati();
     }//GEN-LAST:event_btnEliminarActionPerformed
-                                            
-                                     
+
+    private void btnCambiarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarEstadoActionPerformed
+        // TODO add your handling code here:
+        Platillo p;
+        if (!listMenu.isSelectionEmpty()) {
+            p = platillos.get(listMenu.getSelectedIndex());
+        } else {
+            JOptionPane.showMessageDialog(null,
+                "Debe seleccionar un platillo", "Error",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        platillos.get(listMenu.getSelectedIndex()).cambiarEstado();
+
+        Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre")
+        .equalTo(p.getNombre()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+                snapshot.getRef().setValue(p);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot ds, String string) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot ds) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot ds, String string) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void onCancelled(FirebaseError fe) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
+        updatePlati();
+    }//GEN-LAST:event_btnCambiarEstadoActionPerformed
 
     private void jbVerdetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVerdetalleActionPerformed
         // TODO add your handling code here:
@@ -863,91 +990,40 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnMesaActionPerformed
 
-    private void btnLlegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLlegarActionPerformed
+    /**
+     * Este evento evita que el precio de un platillo pueda ser mayor a 5
+     * digitos y obliga a escribir números.
+     *
+     * @param evt
+     */
+    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {
         // TODO add your handling code here:
-        int[] selected = tableReservas.getSelectedRows();
-        Calendar c = Calendar.getInstance();
-        for(int i : selected){
-            if(reservas.get(i).getHora_llegada() == null){
-                int hora = c.get(Calendar.HOUR_OF_DAY);
-                int min = c.get(Calendar.MINUTE);
-                String tiempo = hora + ":" + min;
-                reservas.get(i).setHora_llegada(tiempo);
-                Conexion.getInstance().getRef().child("Reservas")
-                        .orderByChild("id").equalTo(reservas.get(i).getId())
-                        .addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot ds, String string) {
-                        ds.getRef().setValue(reservas.get(i));
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot ds, String string) {
-                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot ds) {
-                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot ds, String string) {
-                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                    }
-
-                    @Override
-                    public void onCancelled(FirebaseError fe) {
-                        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                    }
-                });
-            }
+        if (!Character.isDigit(evt.getKeyChar())
+            || txtPrecio.getText().length() > 5) {
+            evt.consume();
         }
-        updaRes();
-    }//GEN-LAST:event_btnLlegarActionPerformed
-
-    private void btnCambiarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarEstadoActionPerformed
+    }
+    
+    private void btnActualizarInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarInformesActionPerformed
         // TODO add your handling code here:
-        Platillo p;
-        if (!listMenu.isSelectionEmpty()) {
-            p = platillos.get(listMenu.getSelectedIndex());
-        } else {
-            JOptionPane.showMessageDialog(null,
-                    "Debe seleccionar un platillo", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
+        txtPromedioLlegada.setText(promedioLlegada().toString());
+    }//GEN-LAST:event_btnActualizarInformesActionPerformed
+
+    private Float promedioLlegada(){
+        int acum = 0;
+        for(Reserva r : reservas){
+            String[] split1 = r.getHora_llegada().split(":");
+            int min_llegada = Integer.parseInt(split1[0])*60 + Integer.parseInt(split1[1]);
+            String[] split2 = r.getHora_programada().split(":");
+            int min_programada = Integer.parseInt(split2[0])*60 + Integer.parseInt(split2[1]);
+            acum += min_llegada - min_programada;
         }
-        platillos.get(listMenu.getSelectedIndex()).cambiarEstado();
-
-        Conexion.getInstance().getRef().child("Platillos").orderByChild("nombre")
-                .equalTo(p.getNombre()).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-                snapshot.getRef().setValue(p);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot ds, String string) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot ds) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot ds, String string) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void onCancelled(FirebaseError fe) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        });
-        updatePlati();
-    }//GEN-LAST:event_btnCambiarEstadoActionPerformed
+        float promedio = acum / reservas.size();
+        return promedio;
+    }
+    
+                                           
+                                     
 
     
     
@@ -1061,15 +1137,18 @@ public class Main extends javax.swing.JFrame {
      * Trae la información sobre las reservas de la base de datos y las almacena
      */
     private void bringReservas() {
+        Calendar c  = Calendar.getInstance();
         Conexion.getInstance().getRef().child("Reservas").
                 addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot ds) {
                         for (DataSnapshot d : ds.getChildren()) {
                             Reserva m = d.getValue(Reserva.class);
-                            if (!reservas.contains(m)) {
+                            if(/*Integer.parseInt(m.getFecha().substring(3, 5)) >= c.get(Calendar.MONTH) &&
+                                    Integer.parseInt(m.getFecha().substring(6, 10)) >= c.get(Calendar.YEAR) &&
+                                    */!reservas.contains(m)){
                                 reservas.add(m);
-                            }
+                            }                            
                         }
                         updaRes();
                     }
@@ -1214,6 +1293,7 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnActualizarInformes;
     private javax.swing.JButton btnAgregarPlatillo;
     private javax.swing.JButton btnCambiarEstado;
     private javax.swing.JButton btnEliminar;
@@ -1226,6 +1306,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buGroupEstadisticas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1245,18 +1326,20 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel panCrearMenu;
     private javax.swing.JPanel panDiseñar;
     private javax.swing.JPanel panEstadisticas;
+    private javax.swing.JPanel panInformes;
     private javax.swing.JPanel panMapa;
     private javax.swing.JPanel panMenu;
-    private javax.swing.JTabbedPane panRegistro;
     private javax.swing.JPanel panReservas;
     private javax.swing.JRadioButton rbClientes;
     private javax.swing.JRadioButton rbMenu;
     private javax.swing.JRadioButton rbMesas;
+    private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTable tableEstadisticas;
     private javax.swing.JTable tableReservas;
     private javax.swing.JTextArea txtDescripcionPlatillo;
     private javax.swing.JTextField txtNombrePlatillo;
     private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtPromedioLlegada;
     // End of variables declaration//GEN-END:variables
 
 }

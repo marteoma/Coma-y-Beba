@@ -44,8 +44,7 @@ public class Reserva {
     
     public Reserva(){
         
-    }
-    
+    }    
     
     @Override
     public boolean equals(Object o){
