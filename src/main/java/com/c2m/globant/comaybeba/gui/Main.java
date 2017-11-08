@@ -214,14 +214,14 @@ public class Main extends javax.swing.JFrame {
         panMapa.setLayout(panMapaLayout);
         panMapaLayout.setHorizontalGroup(
             panMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 439, Short.MAX_VALUE)
+            .addGap(0, 408, Short.MAX_VALUE)
         );
         panMapaLayout.setVerticalGroup(
             panMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 327, Short.MAX_VALUE)
+            .addGap(0, 298, Short.MAX_VALUE)
         );
 
-        panDiseñar.add(panMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 35, -1, -1));
+        panDiseñar.add(panMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 35, 410, 300));
 
         btnGuardar.setBackground(new java.awt.Color(255, 204, 102));
         btnGuardar.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
@@ -232,7 +232,7 @@ public class Main extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        panDiseñar.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 394, 90, 31));
+        panDiseñar.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, 90, 31));
 
         tabbedPane.addTab("Diseñar", panDiseñar);
 
@@ -281,9 +281,9 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addContainerGap(334, Short.MAX_VALUE))
+                .addContainerGap(205, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panMenuLayout.createSequentialGroup()
-                .addContainerGap(193, Short.MAX_VALUE)
+                .addContainerGap(72, Short.MAX_VALUE)
                 .addComponent(jbVerdetalle)
                 .addGap(18, 18, 18)
                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -298,7 +298,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(26, 26, 26)
                 .addComponent(lista, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(panMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbVerdetalle)
                     .addComponent(btnEliminar)
@@ -393,7 +393,7 @@ public class Main extends javax.swing.JFrame {
         tableReservas.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tableReservas);
 
-        panReservas.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
+        panReservas.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 400, 390));
 
         btnMostrarReservas.setBackground(new java.awt.Color(255, 204, 102));
         btnMostrarReservas.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
@@ -403,15 +403,15 @@ public class Main extends javax.swing.JFrame {
                 btnMostrarReservasActionPerformed(evt);
             }
         });
-        panReservas.add(btnMostrarReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, 90, -1));
+        panReservas.add(btnMostrarReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 90, -1));
 
         jcReservas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activas", "Ocupadas", "Pendientes" }));
-        panReservas.add(jcReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 90, 32));
+        panReservas.add(jcReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 60, 90, 32));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 153, 0));
         jLabel10.setText("Reservas");
-        panReservas.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, -1, -1));
+        panReservas.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, -1, -1));
 
         btnLlegar.setBackground(new java.awt.Color(255, 204, 102));
         btnLlegar.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
@@ -421,7 +421,7 @@ public class Main extends javax.swing.JFrame {
                 btnLlegarActionPerformed(evt);
             }
         });
-        panReservas.add(btnLlegar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, 90, -1));
+        panReservas.add(btnLlegar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 90, -1));
 
         tabbedPane.addTab("Reservas", panReservas);
 
@@ -532,13 +532,18 @@ public class Main extends javax.swing.JFrame {
 
         tabbedPane.addTab("Estadísticas", panEstadisticas);
 
+        panInformes.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 153, 0));
         jLabel11.setText("Promedio Tiempo llegada");
 
         txtPromedioLlegada.setEditable(false);
+        txtPromedioLlegada.setBackground(new java.awt.Color(255, 255, 255));
         txtPromedioLlegada.setToolTipText("Tiempo promedio de llegada en minutos.");
 
+        btnActualizarInformes.setBackground(new java.awt.Color(255, 204, 102));
+        btnActualizarInformes.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
         btnActualizarInformes.setText("Actualizar");
         btnActualizarInformes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -551,27 +556,23 @@ public class Main extends javax.swing.JFrame {
         panInformesLayout.setHorizontalGroup(
             panInformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panInformesLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
                 .addGroup(panInformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panInformesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel11)
-                        .addGap(36, 36, 36)
-                        .addComponent(txtPromedioLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panInformesLayout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(btnActualizarInformes)))
-                .addContainerGap(376, Short.MAX_VALUE))
+                    .addComponent(btnActualizarInformes)
+                    .addComponent(txtPromedioLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addContainerGap(307, Short.MAX_VALUE))
         );
         panInformesLayout.setVerticalGroup(
             panInformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panInformesLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(panInformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtPromedioLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
+                .addGap(58, 58, 58)
+                .addComponent(jLabel11)
+                .addGap(30, 30, 30)
+                .addComponent(txtPromedioLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
                 .addComponent(btnActualizarInformes)
-                .addGap(154, 154, 154))
+                .addContainerGap(231, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Informes", panInformes);
@@ -593,15 +594,16 @@ public class Main extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(385, 385, 385)
-                .addComponent(lbTitulo)
-                .addGap(18, 18, 18)
-                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(280, 280, 280)
+                        .addComponent(lbTitulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -609,9 +611,9 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
