@@ -174,6 +174,8 @@ public class Main extends javax.swing.JFrame {
         btnActualizarInformes = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         txtPlatilloMasPedido = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtMejorMesa = new javax.swing.JTextField();
         lbTitulo = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
 
@@ -559,6 +561,14 @@ public class Main extends javax.swing.JFrame {
         txtPlatilloMasPedido.setBackground(new java.awt.Color(255, 255, 255));
         txtPlatilloMasPedido.setToolTipText("Tiempo promedio de llegada en minutos.");
 
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel13.setText("Mesa más pedida");
+
+        txtMejorMesa.setEditable(false);
+        txtMejorMesa.setBackground(new java.awt.Color(255, 255, 255));
+        txtMejorMesa.setToolTipText("Tiempo promedio de llegada en minutos.");
+
         javax.swing.GroupLayout panInformesLayout = new javax.swing.GroupLayout(panInformes);
         panInformes.setLayout(panInformesLayout);
         panInformesLayout.setHorizontalGroup(
@@ -566,6 +576,8 @@ public class Main extends javax.swing.JFrame {
             .addGroup(panInformesLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addGroup(panInformesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtMejorMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13)
                     .addComponent(btnActualizarInformes)
                     .addComponent(txtPlatilloMasPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
@@ -584,9 +596,13 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel12)
                 .addGap(18, 18, 18)
                 .addComponent(txtPlatilloMasPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
+                .addComponent(jLabel13)
+                .addGap(18, 18, 18)
+                .addComponent(txtMejorMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(btnActualizarInformes)
-                .addContainerGap())
+                .addGap(50, 50, 50))
         );
 
         tabbedPane.addTab("Informes", panInformes);
@@ -1024,6 +1040,7 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
         txtPromedioLlegada.setText(promedioLlegada().toString());
         txtPlatilloMasPedido.setText(mejorPlatillo());
+        txtMejorMesa.setText(mejorMesa());
     }//GEN-LAST:event_btnActualizarInformesActionPerformed
 
     private Float promedioLlegada() {
@@ -1322,6 +1339,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1352,6 +1370,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTable tableEstadisticas;
     private javax.swing.JTable tableReservas;
     private javax.swing.JTextArea txtDescripcionPlatillo;
+    private javax.swing.JTextField txtMejorMesa;
     private javax.swing.JTextField txtNombrePlatillo;
     private javax.swing.JTextField txtPlatilloMasPedido;
     private javax.swing.JTextField txtPrecio;
@@ -1373,5 +1392,17 @@ public class Main extends javax.swing.JFrame {
             }
         }
         return temp.getNombre();
+    }
+
+    private String mejorMesa() {
+        int mayorCount = 0;
+        Mesa temp = mesas.get(0).getMesa();
+        for(MesaImagen m : mesas){
+            if(m.getMesa().getCount() > mayorCount){
+                mayorCount =  m.getMesa().getCount();
+                temp = m.getMesa();
+            }
+        }
+        return "Mesa " + temp.getId();
     }
 }

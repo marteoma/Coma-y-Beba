@@ -19,6 +19,8 @@ public class Mesa {
     private int y;
     
     private int id;
+    
+    private int count;
 
     /**
      * Crea un objeto mesa con su posición en el restaurante, este objeto solo
@@ -28,12 +30,14 @@ public class Mesa {
      * @param x Posición horizontal de la mesa
      * @param y Posición vertical de la mesa
      * @param id Identificación de la mesa
+     * @param count Cantidad de veces que se ha reservado esta mesa
      */
-    public Mesa(int capacidad, int x, int y, int id){
+    public Mesa(int capacidad, int x, int y, int id, int count){
         this.capacidad = capacidad;
         this.x = x;
         this.y = y;
         this.id = id;
+        this.count = count;
     }
     
     public Mesa(){}
@@ -97,6 +101,20 @@ public class Mesa {
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    /**
+     * @return the count
+     */
+    public int getCount() {
+        return count;
+    }
+
+    /**
+     * @param count the count to set
+     */
+    public void setCount(int count) {
+        this.count = count;
     }
     
     

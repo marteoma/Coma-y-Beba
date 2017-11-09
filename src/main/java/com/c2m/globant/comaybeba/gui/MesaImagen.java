@@ -29,7 +29,7 @@ public class MesaImagen extends Image{
      */
     public MesaImagen(int capacidad, int id){
         super();
-        mesa = new Mesa(capacidad, 0, 0, id);
+        mesa = new Mesa(capacidad, 0, 0, id, 0);
     }
     
     @Override
