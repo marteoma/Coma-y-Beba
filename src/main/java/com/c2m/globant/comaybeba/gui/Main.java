@@ -163,8 +163,6 @@ public class Main extends javax.swing.JFrame {
         panReservas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableReservas = new javax.swing.JTable();
-        btnMostrarReservas = new javax.swing.JButton();
-        jcReservas = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         btnLlegar = new javax.swing.JButton();
         panInformes = new javax.swing.JPanel();
@@ -501,25 +499,12 @@ public class Main extends javax.swing.JFrame {
         tableReservas.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tableReservas);
 
-        panReservas.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 400, 390));
-
-        btnMostrarReservas.setBackground(new java.awt.Color(255, 204, 102));
-        btnMostrarReservas.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
-        btnMostrarReservas.setText("Mostrar");
-        btnMostrarReservas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMostrarReservasActionPerformed(evt);
-            }
-        });
-        panReservas.add(btnMostrarReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 90, -1));
-
-        jcReservas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activas", "Ocupadas", "Pendientes" }));
-        panReservas.add(jcReservas, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 60, 90, 32));
+        panReservas.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 41, 400, 360));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 153, 0));
         jLabel10.setText("Reservas");
-        panReservas.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, -1, -1));
+        panReservas.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         btnLlegar.setBackground(new java.awt.Color(255, 204, 102));
         btnLlegar.setFont(new java.awt.Font("Lao UI", 0, 16)); // NOI18N
@@ -529,7 +514,7 @@ public class Main extends javax.swing.JFrame {
                 btnLlegarActionPerformed(evt);
             }
         });
-        panReservas.add(btnLlegar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 90, -1));
+        panReservas.add(btnLlegar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 170, 90, -1));
 
         tabbedPane.addTab("Reservas", panReservas);
 
@@ -848,10 +833,6 @@ public class Main extends javax.swing.JFrame {
         }
         updaRes();
     }//GEN-LAST:event_btnLlegarActionPerformed
-
-    private void btnMostrarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarReservasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnMostrarReservasActionPerformed
 
 //GEN-FIRST:event_txtPrecioKeyTyped
  
@@ -1336,7 +1317,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnLlegar;
     private javax.swing.JButton btnMesa;
     private javax.swing.JButton btnMostrar;
-    private javax.swing.JButton btnMostrarReservas;
     private javax.swing.ButtonGroup buGroupEstadisticas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1355,7 +1335,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton jbVerdetalle;
     private javax.swing.JComboBox<String> jcEstado;
-    private javax.swing.JComboBox<String> jcReservas;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JList<String> listMenu;
     private javax.swing.JScrollPane lista;
