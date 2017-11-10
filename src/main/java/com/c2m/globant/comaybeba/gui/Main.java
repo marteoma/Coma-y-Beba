@@ -106,7 +106,6 @@ public class Main extends javax.swing.JFrame {
      * reservas que se han traído de la base de datos.
      */
     private void updaRes() {
-        //TODO: Implementar
         tableReservas.removeAll();
         String columns[] = {"Usuario", "Fecha", "Mesa", "Hora", "Llegada"};
         DefaultTableModel model = new DefaultTableModel(null, columns);
@@ -1045,14 +1044,18 @@ public class Main extends javax.swing.JFrame {
 
     private Float promedioLlegada() {
         int acum = 0;
+        int total = 0;
         for (Reserva r : reservas) {
-            String[] split1 = r.getHora_llegada().split(":");
-            int min_llegada = Integer.parseInt(split1[0]) * 60 + Integer.parseInt(split1[1]);
-            String[] split2 = r.getHora_programada().split(":");
-            int min_programada = Integer.parseInt(split2[0]) * 60 + Integer.parseInt(split2[1]);
-            acum += min_llegada - min_programada;
+            if(r.getHora_llegada() != null){
+                String[] split1 = r.getHora_llegada().split(":");
+                int min_llegada = Integer.parseInt(split1[0]) * 60 + Integer.parseInt(split1[1]);
+                String[] split2 = r.getHora_programada().split(":");
+                int min_programada = Integer.parseInt(split2[0]) * 60 + Integer.parseInt(split2[1]);
+                acum += min_llegada - min_programada;
+                total++;
+            }
         }
-        float promedio = acum / reservas.size();
+        float promedio = acum / total;
         return promedio;
     }
 
@@ -1384,14 +1387,16 @@ public class Main extends javax.swing.JFrame {
      */
     private String mejorPlatillo() {
         int mayorCount = 0;
-        Platillo temp = platillos.get(0);
-        for(Platillo p : platillos){
-            if(p.getCount() > mayorCount){
-                mayorCount =  p.getCount();
-                temp = p;
+        if(!platillos.isEmpty()){
+            Platillo temp = platillos.get(0);
+            for(Platillo p : platillos){
+                if(p.getCount() > mayorCount){
+                    mayorCount =  p.getCount();
+                    temp = p;
+                }
             }
-        }
-        return temp.getNombre();
+            return temp.getNombre();
+        }return "No hay platillos";
     }
 
     private String mejorMesa() {
